@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">GilsonAPI</string>
+    <string name="title_activity_advice">AdviceActivity</string>
 </resources>

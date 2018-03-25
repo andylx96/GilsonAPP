@@ -6,13 +6,94 @@
     android:layout_height="match_parent"
     tools:context="io.github.andylx96.gilsonapi.MainActivity">
 
-    <TextView
+
+    <Button
+        android:id="@+id/PairButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="41dp"
+        android:text="Pair"
+        app:layout_constraintStart_toStartOf="@+id/connectStatus"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/CrashButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="75dp"
+        android:layout_marginTop="41dp"
+        android:text="Crash"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/ViewRunDataButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="3dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="47dp"
+        android:text="View Run Data"
+        app:layout_constraintEnd_toStartOf="@+id/ViewAggregateDataButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/connectStatus" />
+
+    <Button
+        android:id="@+id/ViewAggregateDataButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View Aggregate Data"
+        app:layout_constraintBaseline_toBaselineOf="@+id/ViewRunDataButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ViewRunDataButton" />
+
+    <Button
+        android:id="@+id/SocialMediaButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="36dp"
+        android:text="SocialMediaButton"
+        app:layout_constraintBaseline_toBaselineOf="@+id/EmergancyButton"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/EmergancyButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="28dp"
+        android:layout_marginStart="15dp"
+        android:text="Emergancy"
+        app:layout_constraintBottom_toTopOf="@+id/AdviceButton"
+        app:layout_constraintStart_toEndOf="@+id/SocialMediaButton" />
+
+    <Button
+        android:id="@+id/TestingButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="28dp"
+        android:text="Testing Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/connectStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="17dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/PairButton" />
+
+    <Button
+        android:id="@+id/AdviceButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="18dp"
+        android:layout_marginStart="26dp"
+        android:text="Advice"
+        app:layout_constraintBottom_toTopOf="@+id/TestingButton"
+        app:layout_constraintStart_toStartOf="@+id/TestingButton" />
 
 </android.support.constraint.ConstraintLayout>
