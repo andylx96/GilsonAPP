@@ -12,7 +12,6 @@ public class BasicRunData {
 
 
 
-
     public static void main(String[] args){
 
         Snowboard test = new Snowboard();
@@ -29,12 +28,20 @@ public class BasicRunData {
 
         double[] gyro = test.getGyroscope();
 
+        double temp = test.getTemp();
+
         System.out.println("The Accelerometer Data Values Are: " + Arrays.toString(accel));
         System.out.println("The Magnitude of Acceleration Is: " + calcAccel);
+        /*
+        Not sure what the units are supposed to be for the magniture of acceleration
+         */
         System.out.println("The Gyroscope Data Values Are: " + Arrays.toString(gyro));
-        System.out.println("The Temperature During Your Run Was: " + test.getTemp());
+        System.out.println("The Temperature During Your Run Was: " + temp);
+
+
 
 
     }
+
 
 }
