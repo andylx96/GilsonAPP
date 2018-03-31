@@ -8,7 +8,7 @@ import java.util.Arrays;
  * Created by Kyle on 3/28/2018.
  */
 
-public class BasicRunData {
+public class BasicRunDataTest {
 
 
 
