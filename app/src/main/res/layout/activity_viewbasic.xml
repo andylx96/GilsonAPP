@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:layout_editor_absoluteY="81dp">
 
     <TextView
         android:id="@+id/AcceleromterValuesLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="42dp"
+        android:layout_marginStart="52dp"
         android:text="Acceleromter Values: "
         app:layout_constraintBaseline_toBaselineOf="@+id/accelView"
         app:layout_constraintStart_toStartOf="parent" />
@@ -18,28 +19,34 @@
         android:id="@+id/MagnitureOfAccelerationValuesLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="52dp"
         android:text="Magnitude of Acceleration: "
         app:layout_constraintBaseline_toBaselineOf="@+id/magAccelView"
-        app:layout_constraintEnd_toEndOf="@+id/accelView"
-        app:layout_constraintStart_toStartOf="@+id/AcceleromterValuesLabel" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/GyroscopeValuesLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="42dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="40dp"
         android:text="Gyroscope Values: "
-        app:layout_constraintBaseline_toBaselineOf="@+id/gyroView"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/MagnitureOfAccelerationValuesLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/MagnitureOfAccelerationValuesLabel" />
 
     <TextView
         android:id="@+id/TemperatureLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="42dp"
+        android:layout_marginEnd="53dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="49dp"
         android:text="Temperature:"
-        app:layout_constraintBaseline_toBaselineOf="@+id/tempView"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/AcceleromterValuesLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/GyroscopeValuesLabel" />
 
     <TextView
         android:id="@+id/accelView"
@@ -47,14 +54,15 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
         android:text="accel"
-        app:layout_constraintStart_toEndOf="@+id/AcceleromterValuesLabel"
+        app:layout_constraintStart_toStartOf="@+id/magAccelView"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/magAccelView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="42dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="40dp"
         android:text="magAccel"
         app:layout_constraintStart_toEndOf="@+id/MagnitureOfAccelerationValuesLabel"
         app:layout_constraintTop_toBottomOf="@+id/accelView" />
@@ -63,20 +71,19 @@
         android:id="@+id/gyroView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="54dp"
+        android:layout_marginTop="40dp"
         android:text="gyro"
-        app:layout_constraintStart_toEndOf="@+id/GyroscopeValuesLabel"
-        app:layout_constraintTop_toBottomOf="@+id/MagnitureOfAccelerationValuesLabel" />
+        app:layout_constraintStart_toStartOf="@+id/magAccelView"
+        app:layout_constraintTop_toBottomOf="@+id/magAccelView" />
 
     <TextView
         android:id="@+id/tempView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="58dp"
+        android:layout_marginTop="49dp"
         android:text="temp"
-        app:layout_constraintStart_toEndOf="@+id/TemperatureLabel"
-        app:layout_constraintTop_toBottomOf="@+id/GyroscopeValuesLabel" />
+        app:layout_constraintStart_toStartOf="@+id/gyroView"
+        app:layout_constraintTop_toBottomOf="@+id/gyroView" />
 
     <Button
         android:id="@+id/GetBasicRunDataButton"

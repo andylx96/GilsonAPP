@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.Arrays;
+
 import io.github.andylx96.gilsonapi.R;
 
 
@@ -18,7 +20,7 @@ public class ViewBasicRunDataActivity extends Activity{
     Snowboard test = new Snowboard();
 
     double[] accel = test.getAccelerometer();
-    String accelText = accel.toString();
+    //String accelText = accel.toString();
     double v1 = accel[0];
     double v2 = accel[1];
     double v3 = accel[2];
@@ -32,7 +34,7 @@ public class ViewBasicRunDataActivity extends Activity{
     */
     String calcAccelText = String.valueOf(calcAccel);
     double[] gyro = test.getGyroscope();
-    String gyroText = gyro.toString();
+    //String gyroText = gyro.toString();
     double temp = test.getTemp();
     String tempText = String.valueOf(temp);
 
@@ -60,9 +62,9 @@ public class ViewBasicRunDataActivity extends Activity{
             @Override
             public void onClick(View view)
             {
-                accelView1.setText(accelText);
+                accelView1.setText(Arrays.toString(accel));
                 magAccelView1.setText(calcAccelText);
-                gyroView1.setText(gyroText);
+                gyroView1.setText(Arrays.toString(gyro));
                 tempView1.setText(tempText);
             }
         });
