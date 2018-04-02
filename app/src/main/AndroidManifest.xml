@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="io.github.andylx96.gilsonapi">
 
     <application
@@ -18,7 +19,12 @@
         </activity>
         <activity android:name=".TestActivity" />
         <activity android:name=".Pair2Activity" />
-        <activity android:name=".AdviceActivity"></activity>
+        <activity android:name=".AdviceActivity"/>
+        <activity android:name="Snowboard.ViewBasicRunDataActivity"
+            android:exported="true" />
+
+
+
     </application>
 
 </manifest>

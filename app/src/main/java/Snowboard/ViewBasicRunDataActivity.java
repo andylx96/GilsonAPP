@@ -18,6 +18,7 @@ public class ViewBasicRunDataActivity extends Activity{
     Snowboard test = new Snowboard();
 
     double[] accel = test.getAccelerometer();
+    String accelText = accel.toString();
     double v1 = accel[0];
     double v2 = accel[1];
     double v3 = accel[2];
@@ -31,6 +32,7 @@ public class ViewBasicRunDataActivity extends Activity{
     */
     String calcAccelText = String.valueOf(calcAccel);
     double[] gyro = test.getGyroscope();
+    String gyroText = gyro.toString();
     double temp = test.getTemp();
     String tempText = String.valueOf(temp);
 
@@ -44,7 +46,7 @@ public class ViewBasicRunDataActivity extends Activity{
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.view_basic_run_data);
+        setContentView(R.layout.activity_viewbasic);
 
         GetData = findViewById(R.id.GetBasicRunDataButton);
         accelView1 = findViewById(R.id.accelView);
@@ -58,9 +60,9 @@ public class ViewBasicRunDataActivity extends Activity{
             @Override
             public void onClick(View view)
             {
-                accelView1.setText(accel.toString());
+                accelView1.setText(accelText);
                 magAccelView1.setText(calcAccelText);
-                gyroView1.setText(gyro.toString());
+                gyroView1.setText(gyroText);
                 tempView1.setText(tempText);
             }
         });
