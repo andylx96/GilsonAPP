@@ -22,6 +22,8 @@
         <activity android:name=".AdviceActivity"/>
         <activity android:name="Snowboard.ViewBasicRunDataActivity"
             android:exported="true" />
+        <activity android:name=".AggregateRunDataActivity"/>
+
 
 
 

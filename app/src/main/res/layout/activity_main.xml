@@ -43,7 +43,7 @@
         android:id="@+id/ViewAggregateDataButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Aggregate Data(n/a)"
+        android:text="Aggregate Data"
         app:layout_constraintBaseline_toBaselineOf="@+id/ViewBasicRunDataButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/ViewBasicRunDataButton" />
