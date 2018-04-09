@@ -7,7 +7,7 @@ package Snowboard;
 public class DatabaseModel {
 
 
-    private int Id;
+    private long Id;
     private String accelData;
     private String magAccel;
     private String gyroData;
@@ -25,11 +25,15 @@ public class DatabaseModel {
 
     }
 
-    public int getId() {
+    public DatabaseModel(long l, String string, String string1, String string2, String string3, String string4) {
+
+    }
+
+    public long getId() {
         return Id;
     }
 
-    public void setId(int Id) {
+    public void setId(long Id) {
         this.Id = Id;
     }
 
@@ -50,7 +54,7 @@ public class DatabaseModel {
 
     }
 
-    public String getGyroDataData() {
+    public String getGyroData() {
         return gyroData;
     }
 
@@ -58,7 +62,7 @@ public class DatabaseModel {
         this.gyroData = gyroData;
     }
 
-    public String getTempDataData() {
+    public String getTempData() {
         return tempData;
     }
 
@@ -69,8 +73,8 @@ public class DatabaseModel {
         return "Id: "+getId()+ "\n" +
                 "Acceleromter Data: "+getAccelData() + "\n" +
                 "Magnitude of Acceleration: " + getMagAccel() +
-                "Gyroscope Data: "+getGyroDataData() + "\n" +
-                "Temperature : "+getTempDataData();
+                "Gyroscope Data: "+getGyroData() + "\n" +
+                "Temperature : "+getTempData();
     }
 }
 
