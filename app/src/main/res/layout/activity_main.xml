@@ -92,7 +92,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="44dp"
         android:layout_marginStart="40dp"
-        android:text="Advice(n/a)"
+        android:text="Advice"
         app:layout_constraintBottom_toTopOf="@+id/TestingButton"
         app:layout_constraintStart_toStartOf="@+id/TestingButton" />
 
