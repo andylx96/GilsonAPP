@@ -44,6 +44,7 @@ public class ViewBasicRunDataActivity extends Activity{
     TextView gyroView1;
     TextView tempView1;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -58,6 +59,8 @@ public class ViewBasicRunDataActivity extends Activity{
 
 
 
+
+
         GetData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
@@ -66,6 +69,10 @@ public class ViewBasicRunDataActivity extends Activity{
                 magAccelView1.setText(calcAccelText);
                 gyroView1.setText(Arrays.toString(gyro));
                 tempView1.setText(tempText);
+
+
+
+
             }
         });
     }
