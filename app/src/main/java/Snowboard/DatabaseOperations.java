@@ -81,7 +81,7 @@ public class DatabaseOperations {
         return databaseModels;
     }
 
-    public int updateEmployee(DatabaseModel DatabaseModel) {
+    public int updateDatabaseModel(DatabaseModel DatabaseModel) {
 
         ContentValues values = new ContentValues();
         values.put(DataBaseHelper.COLUMN_ACCEL_DATA, DatabaseModel.getAccelData());
