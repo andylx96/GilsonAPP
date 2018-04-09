@@ -21,7 +21,7 @@
         <activity android:name=".TestActivity" />
         <activity android:name=".Pair2Activity" />
         <activity android:name=".AdviceActivity"/>
-        <activity android:name="Snowboard.ViewBasicRunDataActivity"
+        <activity android:name=".ViewBasicRunDataActivity"
             android:exported="true" />
         <activity android:name=".AggregateRunDataActivity"/>
         <activity android:name=".StartRunActivity"/>

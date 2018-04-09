@@ -1,4 +1,4 @@
-package Snowboard;
+package io.github.andylx96.gilsonapi;
 
 /**
  * Created by Kyle on 3/31/2018.
@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import java.util.Arrays;
 
+import Snowboard.Snowboard;
 import io.github.andylx96.gilsonapi.R;
 
 
