@@ -15,10 +15,11 @@ import java.util.Arrays;
 import Snowboard.Snowboard;
 import io.github.andylx96.gilsonapi.R;
 
-
+import Snowboard.*;
 public class ViewBasicRunDataActivity extends Activity{
 
     Snowboard test = new Snowboard();
+
 
     double[] accel = test.getAccelerometer();
     //String accelText = accel.toString();
