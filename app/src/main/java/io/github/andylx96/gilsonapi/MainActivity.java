@@ -6,8 +6,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import Snowboard.ViewBasicRunDataActivity;
-
 public class MainActivity extends AppCompatActivity {
 private Button testButton ;
     private Button viewRunDataButton;
@@ -17,6 +15,7 @@ private Button testButton ;
     private Button crashButton;
     private Button pairButton;
     private Button adviceButton;
+    private Button startButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +30,7 @@ private Button testButton ;
         pairButton = (Button) findViewById(R.id.PairButton);
         adviceButton = (Button) findViewById(R.id.AdviceButton);
         viewRunDataButton = (Button) findViewById(R.id.ViewBasicRunDataButton);
+        startButton = (Button) findViewById(R.id.StartRunBtn);
 
         setButtons();
     }
@@ -72,7 +72,13 @@ private Button testButton ;
                 startActivity(new Intent(MainActivity.this,AggregateRunDataActivity.class));
             }
         });
+        startButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
+                startActivity(new Intent(MainActivity.this,StartRunActivity.class));
+            }
+        });
 
 
     }

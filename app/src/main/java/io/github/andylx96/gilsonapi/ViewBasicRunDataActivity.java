@@ -1,4 +1,4 @@
-package Snowboard;
+package io.github.andylx96.gilsonapi;
 
 /**
  * Created by Kyle on 3/31/2018.
@@ -12,12 +12,14 @@ import android.widget.TextView;
 
 import java.util.Arrays;
 
+import Snowboard.Snowboard;
 import io.github.andylx96.gilsonapi.R;
 
-
+import Snowboard.*;
 public class ViewBasicRunDataActivity extends Activity{
 
     Snowboard test = new Snowboard();
+
 
     double[] accel = test.getAccelerometer();
     //String accelText = accel.toString();
@@ -44,6 +46,9 @@ public class ViewBasicRunDataActivity extends Activity{
     TextView gyroView1;
     TextView tempView1;
 
+    DatabaseModel db;
+    DatabaseOperations dbo;
+
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -58,14 +63,29 @@ public class ViewBasicRunDataActivity extends Activity{
 
 
 
+
+
         GetData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
             {
+
+                db.setAccelData(Arrays.toString(accel));
+                db.setMagAccel(calcAccelText);
+                db.setGyroData(Arrays.toString(gyro));
+                db.setTempDataData(tempText);
+
+                String dbOp = db.toString(); //takes set data and puts into string to be entered into DB Operations
+                dbo.open();
+                dbo.addDatabaseModel(db);
+                dbo.close();
+
                 accelView1.setText(Arrays.toString(accel));
                 magAccelView1.setText(calcAccelText);
                 gyroView1.setText(Arrays.toString(gyro));
                 tempView1.setText(tempText);
+
+
             }
         });
     }

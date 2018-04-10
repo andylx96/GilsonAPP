@@ -20,6 +20,7 @@ public class Snowboard {
     double[] accelerometer;
     double[] gyroscope;
     double temp;
+    boolean pos_neg;
 
     public Snowboard(){
         snowboardDataSet = new double[64];
@@ -64,10 +65,18 @@ public class Snowboard {
 //        return gyroscope;
         DecimalFormat df3 = new DecimalFormat(".###");
 
+        // enable x axis to have negative numbers
+        Random random = new Random();
+        pos_neg = random.nextBoolean();
+
+
         double[] tempArry = new double[3];
         tempArry[0] = Double.parseDouble(df3.format(Math.random()));
         tempArry[1] =  Double.parseDouble(df3.format(Math.random()));
         tempArry[2] =  Double.parseDouble(df3.format(Math.random()));
+
+        if(pos_neg){tempArry[0] = tempArry[0] * -1;}
+
         return tempArry;
 
     }
