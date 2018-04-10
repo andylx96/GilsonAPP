@@ -46,6 +46,8 @@ public class ViewBasicRunDataActivity extends Activity{
     TextView gyroView1;
     TextView tempView1;
 
+    DatabaseModel db;
+    DatabaseOperations dbo;
 
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -67,12 +69,21 @@ public class ViewBasicRunDataActivity extends Activity{
             @Override
             public void onClick(View view)
             {
+
+                db.setAccelData(Arrays.toString(accel));
+                db.setMagAccel(calcAccelText);
+                db.setGyroData(Arrays.toString(gyro));
+                db.setTempDataData(tempText);
+
+                String dbOp = db.toString(); //takes set data and puts into string to be entered into DB Operations
+                dbo.open();
+                dbo.addDatabaseModel(db);
+                dbo.close();
+
                 accelView1.setText(Arrays.toString(accel));
                 magAccelView1.setText(calcAccelText);
                 gyroView1.setText(Arrays.toString(gyro));
                 tempView1.setText(tempText);
-
-
 
 
             }
