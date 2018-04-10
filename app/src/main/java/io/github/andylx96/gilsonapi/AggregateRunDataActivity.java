@@ -1,24 +1,26 @@
 package io.github.andylx96.gilsonapi;
 
 
+import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import Snowboard.DatabaseOperations;
+import java.util.Arrays;
 
 
 public class AggregateRunDataActivity extends AppCompatActivity{
 
 
-    DatabaseOperations db;
+
     Button showRuns;
-    ListView list;
+    Button deleteRuns;
+    DataBaseHelper myDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,23 +28,57 @@ public class AggregateRunDataActivity extends AppCompatActivity{
         setContentView(R.layout.activity_aggregatedata);
 
         showRuns = findViewById(R.id.ShowRunsButton);
-        String [] myRuns = {"1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th", "10th"};
+        deleteRuns = findViewById(R.id.DeleteRunsButton);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.activity_aggregatedata, myRuns);
-        list = (ListView) findViewById(R.id.listView);
+        myDb = new DataBaseHelper(this);
+
 
         showRuns.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view)
-            {
-                //db.getDatabaseModel();
+                    @Override
+                    public void onClick(View v) {
+                        Cursor res = myDb.getAllData();
+                        if(res.getCount() == 0) {
+                            // show message
+                            showMessage("Error","Nothing found");
+                            return;
+                        }
 
-                Toast.makeText(getApplicationContext(), "Getting Database", Toast.LENGTH_SHORT).show();
+                        StringBuffer buffer = new StringBuffer();
+                        while (res.moveToNext()) {
+                            buffer.append("Accelerometer Data :"+ res.getString(1)+"\n");
+                            buffer.append("Magnitude of Acceleration :"+ res.getString(2)+"\n");
+                            buffer.append("Gyroscope Data :"+ res.getString(3)+"\n");
+                            buffer.append("Temperature Data :"+ res.getString(4)+"\n\n");
+                        }
+
+                        // Show all data
+                        showMessage("Data",buffer.toString());
+                    }
+                }
+        );
+
+        deleteRuns.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        myDb.deleteData();
+
+                    }
+                }
+        );
 
 
 
-            }
-        });
+        }
+    public void showMessage(String title,String Message){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle(title);
+        builder.setMessage(Message);
+        builder.show();
+
+
 
     }
 

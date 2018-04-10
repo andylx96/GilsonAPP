@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="52dp"
         android:layout_marginStart="52dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="39dp"
         android:text="Gyroscope Values: "
         app:layout_constraintEnd_toEndOf="@+id/MagnitureOfAccelerationValuesLabel"
         app:layout_constraintStart_toStartOf="parent"
@@ -71,7 +71,7 @@
         android:id="@+id/gyroView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="39dp"
         android:text="gyro"
         app:layout_constraintStart_toStartOf="@+id/magAccelView"
         app:layout_constraintTop_toBottomOf="@+id/magAccelView" />
@@ -89,10 +89,19 @@
         android:id="@+id/GetBasicRunDataButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="79dp"
+        android:layout_marginStart="52dp"
         android:text="Get Data"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/SaveDataButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="72dp"
+        android:text="Save Data"
+        app:layout_constraintBaseline_toBaselineOf="@+id/GetBasicRunDataButton"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
