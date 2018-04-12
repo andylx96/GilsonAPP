@@ -1,6 +1,7 @@
 package io.github.andylx96.gilsonapi;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -33,6 +34,8 @@ private Button testButton ;
         startButton = (Button) findViewById(R.id.StartRunBtn);
 
         setButtons();
+
+
     }
 
 
