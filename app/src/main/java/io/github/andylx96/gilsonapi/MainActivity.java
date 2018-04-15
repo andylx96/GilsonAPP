@@ -43,6 +43,14 @@ private Button testButton ;
 
 //    Setting OnClickListener For Test Button
     public void setButtons(){
+        socialMediaButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, SocialMediaActivity.class));
+            }
+        });
+
+
         viewRunDataButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
