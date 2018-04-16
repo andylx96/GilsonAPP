@@ -18,7 +18,7 @@ private Button testButton ;
     private Button viewRunDataButton;
     private Button viewAggDataButton;
     private Button socialMediaButton;
-    private Button emergancyButton;
+    private Button emergencyButton;
     private Button crashButton;
     private Button pairButton;
     private Button adviceButton;
@@ -34,7 +34,7 @@ private Button testButton ;
         viewRunDataButton = (Button) findViewById(R.id.ViewBasicRunDataButton);
         viewAggDataButton = (Button) findViewById(R.id.ViewAggregateDataButton);
         socialMediaButton = (Button) findViewById(R.id.SocialMediaButton);
-        emergancyButton = (Button) findViewById(R.id.EmergancyButton);
+        emergencyButton = (Button) findViewById(R.id.EmergencyButton);
         crashButton = (Button) findViewById(R.id.CrashButton);
         pairButton = (Button) findViewById(R.id.PairButton);
         adviceButton = (Button) findViewById(R.id.AdviceButton);
@@ -84,7 +84,7 @@ private Button testButton ;
             }
         });
 
-        emergancyButton.setOnClickListener(new View.OnClickListener() {
+        emergencyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 

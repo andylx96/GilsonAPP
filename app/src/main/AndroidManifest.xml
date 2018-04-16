@@ -27,6 +27,7 @@
             android:name=".ViewBasicRunDataActivity"
             android:exported="true" />
         <activity android:name=".SocialMediaActivity"/>
+        <activity android:name=".EmergencyActivity"/>
         <activity android:name=".AggregateRunDataActivity" />
         <activity android:name=".StartRunActivity" />
         <activity android:name=".SplashScreenActivity">
