@@ -54,16 +54,16 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="SocialMediaButton(n/a)"
-        app:layout_constraintBaseline_toBaselineOf="@+id/EmergancyButton"
+        app:layout_constraintBaseline_toBaselineOf="@+id/EmergencyButton"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/EmergancyButton"
+        android:id="@+id/EmergencyButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="28dp"
         android:layout_marginStart="15dp"
-        android:text="Emergency(n/a)"
+        android:text="Emergency"
         app:layout_constraintBottom_toTopOf="@+id/AdviceButton"
         app:layout_constraintStart_toEndOf="@+id/SocialMediaButton" />
 
