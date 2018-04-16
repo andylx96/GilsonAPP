@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">GilsonAPI</string>
     <string name="title_activity_advice">AdviceActivity</string>
+    <string name="msg">Please enable all permission</string>
 </resources>

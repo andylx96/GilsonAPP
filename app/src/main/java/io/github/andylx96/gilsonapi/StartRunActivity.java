@@ -13,13 +13,11 @@ import android.widget.Button;
 import android.widget.Toast;
 
 
-import Snowboard.DatabaseModel;
 import Snowboard.GpsTracker;
-import io.github.andylx96.gilsonapi.R;
 
 public class StartRunActivity extends AppCompatActivity {
 
-    private DatabaseModel mDatabase;
+
     private Button startButton;
     private Button endButton;
 

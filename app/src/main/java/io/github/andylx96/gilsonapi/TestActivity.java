@@ -33,6 +33,8 @@ private Button generateDataButton;
         generateDataButton = (Button) findViewById(R.id.GenDataButton);
         snowboard = new Snowboard();
 
+
+
 setButtonListeners();
 
     }
