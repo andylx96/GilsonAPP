@@ -1,111 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="io.github.andylx96.gilsonapi.MainActivity">
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start">
+    <!--tools:context="io.github.andylx96.gilsonapi.MainActivity">-->
 
+    <include
+        layout="@layout/app_bar_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
-    <Button
-        android:id="@+id/PairButton"
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="56dp"
-        android:layout_marginTop="40dp"
-        android:text="Pair"
-        app:layout_constraintStart_toStartOf="@+id/connectStatus"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header_main"
+        app:menu="@menu/activity_dashboard_drawer" />
 
-    <Button
-        android:id="@+id/CrashButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="75dp"
-        android:layout_marginTop="41dp"
-        android:text="Crash(n/a)"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/ViewBasicRunDataButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="3dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="12dp"
-        android:text="Basic Run Data"
-        app:layout_constraintEnd_toStartOf="@+id/ViewAggregateDataButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/connectStatus" />
 
-    <Button
-        android:id="@+id/ViewAggregateDataButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Aggregate Data"
-        app:layout_constraintBaseline_toBaselineOf="@+id/ViewBasicRunDataButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ViewBasicRunDataButton" />
+    <!--<Button-->
+        <!--android:id="@+id/CrashButton"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginEnd="75dp"-->
+        <!--android:layout_marginTop="41dp"-->
+        <!--android:text="Crash(n/a)"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent" />-->
 
-    <Button
-        android:id="@+id/SocialMediaButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="Social Media"
-        app:layout_constraintBaseline_toBaselineOf="@+id/EmergencyButton"
-        app:layout_constraintStart_toStartOf="parent" />
+    <!--<Button-->
+        <!--android:id="@+id/ViewBasicRunDataButton"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginEnd="3dp"-->
+        <!--android:layout_marginStart="20dp"-->
+        <!--android:layout_marginTop="12dp"-->
+        <!--android:text="Basic Run Data"-->
+        <!--app:layout_constraintEnd_toStartOf="@+id/ViewAggregateDataButton"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/connectStatus" />-->
 
-    <Button
-        android:id="@+id/EmergencyButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
-        android:layout_marginStart="15dp"
-        android:text="Emergency"
-        app:layout_constraintBottom_toTopOf="@+id/AdviceButton"
-        app:layout_constraintStart_toEndOf="@+id/SocialMediaButton" />
+    <!--<Button-->
+        <!--android:id="@+id/ViewAggregateDataButton"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Aggregate Data"-->
+        <!--app:layout_constraintBaseline_toBaselineOf="@+id/ViewBasicRunDataButton"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toEndOf="@+id/ViewBasicRunDataButton" />-->
 
-    <Button
-        android:id="@+id/TestingButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
-        android:text="Testing Button(n/a)"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+    <!--<Button-->
+        <!--android:id="@+id/SocialMediaButton"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginStart="16dp"-->
+        <!--android:text="Social Media"-->
+        <!--app:layout_constraintBaseline_toBaselineOf="@+id/EmergencyButton"-->
+        <!--app:layout_constraintStart_toStartOf="parent" />-->
 
-    <TextView
-        android:id="@+id/connectStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="17dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/PairButton" />
+    <!--<Button-->
+        <!--android:id="@+id/EmergencyButton"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="28dp"-->
+        <!--android:layout_marginStart="15dp"-->
+        <!--android:text="Emergency"-->
+        <!--app:layout_constraintBottom_toTopOf="@+id/AdviceButton"-->
+        <!--app:layout_constraintStart_toEndOf="@+id/SocialMediaButton" />-->
 
-    <Button
-        android:id="@+id/AdviceButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="44dp"
-        android:layout_marginStart="40dp"
-        android:text="Advice"
-        app:layout_constraintBottom_toTopOf="@+id/TestingButton"
-        app:layout_constraintStart_toStartOf="@+id/TestingButton" />
+    <!--<Button-->
+        <!--android:id="@+id/TestingButton"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="28dp"-->
+        <!--android:text="Testing Button(n/a)"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent" />-->
 
-    <Button
-        android:id="@+id/StartRunBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="23dp"
-        android:layout_marginStart="142dp"
-        android:layout_marginTop="23dp"
-        android:text="Start Run"
-        app:layout_constraintBottom_toTopOf="@+id/SocialMediaButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ViewBasicRunDataButton" />
+    <!--<TextView-->
+        <!--android:id="@+id/connectStatus"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="17dp"-->
+        <!--android:layout_marginStart="16dp"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/PairButton" />-->
 
-</android.support.constraint.ConstraintLayout>
+    <!--<Button-->
+        <!--android:id="@+id/AdviceButton"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="44dp"-->
+        <!--android:layout_marginStart="40dp"-->
+        <!--android:text="Advice"-->
+        <!--app:layout_constraintBottom_toTopOf="@+id/TestingButton"-->
+        <!--app:layout_constraintStart_toStartOf="@+id/TestingButton" />-->
+
+
+
+</android.support.v4.widget.DrawerLayout>

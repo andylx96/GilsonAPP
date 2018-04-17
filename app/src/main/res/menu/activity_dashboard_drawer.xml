@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_ViewBasicRun"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="View Basic Run Data" />
+        <item
+            android:id="@+id/nav_ViewAgg"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="View Past Run Data" />
+        <item
+            android:id="@+id/nav_Social"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Social Media" />
+        <item
+            android:id="@+id/nav_Advice"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Advice" />
+    </group>
+
+    <item android:title="Developer">
+        <menu>
+            <item
+                android:id="@+id/nav_Emerg"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Emergency" />
+            <item
+                android:id="@+id/nav_goals"
+                android:title="About" />
+            <!--android:icon="@drawable/ic_menu_send"-->
+        </menu>
+    </item>
+
+</menu>
