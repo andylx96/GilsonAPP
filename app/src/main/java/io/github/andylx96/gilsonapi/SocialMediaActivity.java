@@ -1,7 +1,9 @@
 package io.github.andylx96.gilsonapi;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -94,6 +96,15 @@ public class SocialMediaActivity extends Activity {
         }
     }
 
+    private void shareIntent(){
+        Intent share = new Intent(Intent.ACTION_SEND);
+        share.setType("image/*");
+        String imagePath = Environment.getExternalStorageDirectory() + "/myImage.png";
+        File imageFileToShare = new File(imagePath);
+        Uri uri = Uri.fromFile(imageFileToShare);
+        share.putExtra(Intent.EXTRA_STREAM, uri);
+        startActivity(Intent.createChooser(share, "Share Image!"));
+    }
 
 
 
