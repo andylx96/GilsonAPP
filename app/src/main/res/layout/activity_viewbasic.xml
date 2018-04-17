@@ -104,4 +104,12 @@
         app:layout_constraintBaseline_toBaselineOf="@+id/GetBasicRunDataButton"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <Button
+        android:id="@+id/emer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Emergency"
+        tools:layout_editor_absoluteX="166dp"
+        tools:layout_editor_absoluteY="455dp" />
+
 </android.support.constraint.ConstraintLayout>

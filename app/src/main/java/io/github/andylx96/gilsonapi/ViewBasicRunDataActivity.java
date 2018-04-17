@@ -5,9 +5,13 @@ package io.github.andylx96.gilsonapi;
  */
 
 import android.app.Activity;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Environment;
+import android.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -47,6 +51,7 @@ public class ViewBasicRunDataActivity extends Activity {
     String tempText = String.valueOf(temp);
 
     Button GetData;
+    Button Emergency;
     TextView accelView1;
     TextView magAccelView1;
     TextView gyroView1;
@@ -68,9 +73,43 @@ public class ViewBasicRunDataActivity extends Activity {
         magAccelView1 = findViewById(R.id.magAccelView);
         gyroView1 = findViewById(R.id.gyroView);
         tempView1 = findViewById(R.id.tempView);
+        Emergency = (Button)findViewById(R.id.emer);
 
         SaveData = findViewById(R.id.SaveDataButton);
 
+
+
+        Emergency.setOnClickListener(new View.OnClickListener() {
+            @Override
+               public void onClick(View view) {
+                AlertDialog alertDialog = new AlertDialog.Builder(ViewBasicRunDataActivity.this).create();
+                alertDialog.setTitle("Emergency crash sending help in");
+                alertDialog.setMessage("00:10");
+                alertDialog.setCancelable(false);
+                alertDialog.setButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                });
+
+                alertDialog.show();   // 
+
+                new CountDownTimer(10000, 1000) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+                        alertDialog.setMessage("00:" + (millisUntilFinished / 1000));
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        Intent intent = new Intent(ViewBasicRunDataActivity.this,EmergencyActivity.class);
+                        startActivity(intent);
+
+                    }
+                }.start();
+            }
+        });
 
 
 
