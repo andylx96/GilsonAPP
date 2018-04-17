@@ -33,7 +33,7 @@ private Button testButton ;
     private Button adviceButton;
     private Button startButton;
 
-    private static final int REQUEST_PERMISSION = 10;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,13 +61,6 @@ private Button testButton ;
 //        viewRunDataButton = (Button) findViewById(R.id.ViewBasicRunDataButton);
         startButton = (Button) findViewById(R.id.StartRunBtn);
 
-//        requestAppPermissions(new String[]{
-//                        Manifest.permission.BLUETOOTH,
-//                        Manifest.permission.BLUETOOTH_ADMIN,
-//                        Manifest.permission.ACCESS_FINE_LOCATION,
-//                        Manifest.permission.ACCESS_COARSE_LOCATION,
-//                        Manifest.permission.SEND_SMS},
-//                R.string.msg,REQUEST_PERMISSION);
 
 
         setButtons();
