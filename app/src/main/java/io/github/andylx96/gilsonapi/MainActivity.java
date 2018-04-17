@@ -196,6 +196,11 @@ private Button testButton ;
 //            startActivity(new Intent(Dashboard.this,Goal.class));
 //
 //        }
+        else if (id == R.id.pair_id){
+
+            startActivity(new Intent(MainActivity.this,Pair2Activity.class));
+
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

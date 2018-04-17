@@ -100,7 +100,7 @@ public class Pair2Activity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 //                connectStatus.setText("Connected");
-                connectStatus2.setText("Connected");
+                connectStatus2.setText("Starting Scan\nSearching For Devices...");
                 startScan();
 
             }
