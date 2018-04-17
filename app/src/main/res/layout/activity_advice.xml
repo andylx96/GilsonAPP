@@ -27,9 +27,9 @@
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="209dp"
                 android:gravity="center_vertical|center_horizontal"
-                android:text="-Bend You Knees To Go Faster \n -Try to carve more on your heels"
+                android:text="-Bend You Knees To Go Faster \n -Try to carve more \n on your heels"
                 android:textSize="32sp"
                 tools:layout_editor_absoluteX="163dp"
                 tools:layout_editor_absoluteY="245dp" />

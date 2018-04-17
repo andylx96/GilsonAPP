@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center_horizontal|center"
-            android:text="-Bend You Knees To Go Faster \n -Try to carve more on your heels"
+            android:text="-Bend You Knees To Go Faster \n -Try to carve more on your toes"
             android:textSize="32sp"
             tools:layout_editor_absoluteX="163dp"
             tools:layout_editor_absoluteY="245dp" />
