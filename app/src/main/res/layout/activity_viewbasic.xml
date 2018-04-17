@@ -7,7 +7,7 @@
     tools:layout_editor_absoluteY="81dp">
 
     <TextView
-        android:id="@+id/AcceleromterValuesLabel"
+        android:id="@+id/AccelerometerValuesLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="52dp"
@@ -44,7 +44,7 @@
         android:layout_marginStart="52dp"
         android:layout_marginTop="49dp"
         android:text="Temperature:"
-        app:layout_constraintEnd_toEndOf="@+id/AcceleromterValuesLabel"
+        app:layout_constraintEnd_toEndOf="@+id/AccelerometerValuesLabel"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/GyroscopeValuesLabel" />
 

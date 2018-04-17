@@ -5,12 +5,19 @@ package io.github.andylx96.gilsonapi;
  */
 
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Environment;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Arrays;
 
 import Snowboard.Snowboard;
@@ -24,6 +31,7 @@ public class ViewBasicRunDataActivity extends Activity {
     double v1 = accel[0];
     double v2 = accel[1];
     double v3 = accel[2];
+    String accelText = Arrays.toString(accel);
     double calcV = ((v1 * v1) + (v2 * v2) + (v3 * v3));
     /*
     Magnitude of acceleration calculation I found was "square root of (x^2+y^2+z^2)"
@@ -34,6 +42,7 @@ public class ViewBasicRunDataActivity extends Activity {
     */
     String calcAccelText = String.valueOf(calcAccel);
     double[] gyro = test.getGyroscope();
+    String gyroText = Arrays.toString(gyro);
     double temp = test.getTemp();
     String tempText = String.valueOf(temp);
 
@@ -43,9 +52,9 @@ public class ViewBasicRunDataActivity extends Activity {
     TextView gyroView1;
     TextView tempView1;
 
-
     DataBaseHelper myDb;
     Button SaveData;
+
 
 
     @Override
@@ -63,17 +72,18 @@ public class ViewBasicRunDataActivity extends Activity {
         SaveData = findViewById(R.id.SaveDataButton);
 
 
+
+
         GetData.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick (View view)
             {
 
-                accelView1.setText(Arrays.toString(accel));
+                accelView1.setText(accelText);
                 magAccelView1.setText(calcAccelText);
-                gyroView1.setText(Arrays.toString(gyro));
+                gyroView1.setText(gyroText);
                 tempView1.setText(tempText);
-
 
             }
         });
@@ -93,6 +103,10 @@ public class ViewBasicRunDataActivity extends Activity {
                         }
                     }
             );
+
+
+
+
 
 
 
