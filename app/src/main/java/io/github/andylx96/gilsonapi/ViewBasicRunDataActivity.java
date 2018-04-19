@@ -53,6 +53,7 @@ public class ViewBasicRunDataActivity extends Activity {
     Button GetData;
     Button Emergency;
     Button plotButton;
+    Button pieButton;
     TextView accelView1;
     TextView magAccelView1;
     TextView gyroView1;
@@ -76,6 +77,7 @@ public class ViewBasicRunDataActivity extends Activity {
         tempView1 = findViewById(R.id.tempView);
         Emergency = (Button)findViewById(R.id.emer);
         plotButton = (Button)findViewById(R.id.plotButton);
+        pieButton = (Button)findViewById(R.id.pieButton);
 
         SaveData = findViewById(R.id.SaveDataButton);
 
@@ -142,6 +144,22 @@ public class ViewBasicRunDataActivity extends Activity {
             else{
                 Toast.makeText(getApplicationContext(), "Please get values first", Toast.LENGTH_SHORT).show();
             }
+
+            }
+        });
+
+        pieButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick (View view)
+            {
+
+                if (gyro != null) {
+                    startActivity(new Intent(ViewBasicRunDataActivity.this, pieChartActivity.class));
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "Please get values first", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
