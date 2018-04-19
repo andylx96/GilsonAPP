@@ -3,7 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/GilsonAPP.iml" filepath="$PROJECT_DIR$/GilsonAPP.iml" />
-      <module fileurl="file://C:\Users\rober_000\AndroidStudioProjects\GilsonAPP\GilsonAPP.iml" filepath="C:\Users\rober_000\AndroidStudioProjects\GilsonAPP\GilsonAPP.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PlotResources/PlotResources.iml" filepath="$PROJECT_DIR$/PlotResources/PlotResources.iml" />
+      <module fileurl="file://$PROJECT_DIR$/androidplot-core/androidplot-core.iml" filepath="$PROJECT_DIR$/androidplot-core/androidplot-core.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
