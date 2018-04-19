@@ -1,8 +1,12 @@
 package io.github.andylx96.gilsonapi;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -10,11 +14,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-
+import java.util.Date;
+import java.util.Random;
 
 
 public class SocialMediaActivity extends Activity {
@@ -34,7 +41,6 @@ public class SocialMediaActivity extends Activity {
     String tempText2 = VB.tempText;
 
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +52,8 @@ public class SocialMediaActivity extends Activity {
         magAccelView1 = findViewById(R.id.magAccelView);
         gyroView1 = findViewById(R.id.gyroView);
         tempView1 = findViewById(R.id.tempView);
-        
+
+
         chooseRunButton.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -70,11 +77,15 @@ public class SocialMediaActivity extends Activity {
                 Bitmap bitmap = takeScreenshot();
                 saveBitmap(bitmap);
 
+
+
             }
         });
 
 
     }
+
+
     public Bitmap takeScreenshot() {
         View rootView = findViewById(android.R.id.content).getRootView();
         rootView.setDrawingCacheEnabled(true);
@@ -82,10 +93,10 @@ public class SocialMediaActivity extends Activity {
     }
 
     public void saveBitmap(Bitmap bitmap) {
-        File imagePath = new File(Environment.getExternalStorageDirectory() + "/screenshot.png");
+        String mPath = Environment.getExternalStorageDirectory().toString() + "/" + ".jpg";
         FileOutputStream fos;
         try {
-            fos = new FileOutputStream(imagePath);
+            fos = new FileOutputStream(mPath);
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
             fos.flush();
             fos.close();
