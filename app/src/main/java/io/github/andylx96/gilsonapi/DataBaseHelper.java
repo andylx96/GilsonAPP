@@ -14,21 +14,22 @@ import android.widget.TextView;
 
 public class DataBaseHelper extends SQLiteOpenHelper {
 
-    public static final String DATABASE_NAME = "Snowboard.db";
+    public static final String DATABASE_NAME = "Snowboard2.db";
     public static final String TABLE_NAME = "snowboard_data_table";
     public static final String COL_1 = "ID";
     public static final String COL_2 = "AccelData";
     public static final String COL_3 = "MagAccel";
     public static final String COL_4 = "GyroData";
     public static final String COL_5 = "TempData";
+    public static final String COL_6 = "SpeedData";
 
     public DataBaseHelper(Context context) {
-        super(context, DATABASE_NAME, null, 1);
+        super(context, DATABASE_NAME, null, 2);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table " + TABLE_NAME +" (ID INTEGER PRIMARY KEY AUTOINCREMENT,AccelData TEXT,MagAccel TEXT,GyroData TEXT,TempData TEXT)");
+        db.execSQL("create table " + TABLE_NAME +" (ID INTEGER PRIMARY KEY AUTOINCREMENT,AccelData TEXT,MagAccel TEXT,GyroData TEXT,TempData TEXT,SpeedData TEXT )");
     }
 
     @Override
@@ -37,13 +38,14 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean insertData(String AccelData, String MagAccel, String GyroData, String TempData) {
+    public boolean insertData(String AccelData, String MagAccel, String GyroData, String TempData, String SpeedData) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_2,AccelData);
         contentValues.put(COL_3,MagAccel);
         contentValues.put(COL_4,GyroData);
         contentValues.put(COL_5,TempData);
+        contentValues.put(COL_6,SpeedData);
         long result = db.insert(TABLE_NAME,null ,contentValues);
         if(result == -1)
             return false;
@@ -57,13 +59,14 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return res;
     }
 
-    public boolean updateData(String id,String AccelData, String MagAccel, String GyroData, String TempData) {
+    public boolean updateData(String id,String AccelData, String MagAccel, String GyroData, String TempData, String SpeedData) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_2,AccelData);
         contentValues.put(COL_3,MagAccel);
         contentValues.put(COL_4,GyroData);
         contentValues.put(COL_5,TempData);
+        contentValues.put(COL_6, SpeedData);
         db.update(TABLE_NAME, contentValues, "ID = ?",new String[] { id });
         return true;
     }
