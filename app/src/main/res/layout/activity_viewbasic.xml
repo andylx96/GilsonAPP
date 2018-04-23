@@ -44,9 +44,21 @@
         android:layout_marginStart="52dp"
         android:layout_marginTop="49dp"
         android:text="Temperature:"
-        app:layout_constraintEnd_toEndOf="@+id/AccelerometerValuesLabel"
+        app:layout_constraintEnd_toEndOf="@+id/GyroscopeValuesLabel"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/GyroscopeValuesLabel" />
+
+    <TextView
+        android:id="@+id/SpeedLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="53dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="49dp"
+        android:text="Speed:"
+        app:layout_constraintEnd_toEndOf="@+id/TemperatureLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/TemperatureLabel" />
 
     <TextView
         android:id="@+id/accelView"
@@ -85,6 +97,15 @@
         app:layout_constraintStart_toStartOf="@+id/gyroView"
         app:layout_constraintTop_toBottomOf="@+id/gyroView" />
 
+    <TextView
+        android:id="@+id/speedView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="49dp"
+        android:text="speed"
+        app:layout_constraintStart_toStartOf="@+id/tempView"
+        app:layout_constraintTop_toBottomOf="@+id/tempView" />
+
     <Button
         android:id="@+id/GetBasicRunDataButton"
         android:layout_width="wrap_content"
@@ -110,6 +131,7 @@
         android:layout_height="wrap_content"
         android:text="Emergency"
         tools:layout_editor_absoluteX="166dp"
-        tools:layout_editor_absoluteY="455dp" />
+        tools:layout_editor_absoluteY="455dp"
+        tools:ignore="MissingConstraints" />
 
 </android.support.constraint.ConstraintLayout>
