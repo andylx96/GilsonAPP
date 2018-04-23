@@ -46,8 +46,8 @@ public class ViewBasicRunDataActivity extends Activity {
     Not sure what the units are supposed to be for the magniture of acceleration
     */
     String calcAccelText = String.valueOf(calcAccel);
-    double[] gyro = test.getGyroscope();
-    String gyroText = Arrays.toString(gyro);
+    double[] gyro;
+    String gyroText;
     double temp = test.getTemp();
     String tempText = String.valueOf(temp);
 
@@ -56,6 +56,8 @@ public class ViewBasicRunDataActivity extends Activity {
 
     Button GetData;
     Button Emergency;
+    Button plotButton;
+    Button pieButton;
     TextView accelView1;
     TextView magAccelView1;
     TextView gyroView1;
@@ -64,6 +66,8 @@ public class ViewBasicRunDataActivity extends Activity {
 
     DataBaseHelper myDb;
     Button SaveData;
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -78,8 +82,12 @@ public class ViewBasicRunDataActivity extends Activity {
         tempView1 = findViewById(R.id.tempView);
         speedView1 = findViewById(R.id.speedView);
         Emergency = (Button)findViewById(R.id.emer);
+        plotButton = (Button)findViewById(R.id.plotButton);
+        pieButton = (Button)findViewById(R.id.pieButton);
 
         SaveData = findViewById(R.id.SaveDataButton);
+
+
 
         Emergency.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,16 +122,51 @@ public class ViewBasicRunDataActivity extends Activity {
         });
 
 
+
         GetData.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick (View view)
             {
+                gyro = test.getGyroscope();
+                gyroText = Arrays.toString(gyro);
                 accelView1.setText(accelText);
                 magAccelView1.setText(calcAccelText);
                 gyroView1.setText(gyroText);
                 tempView1.setText(tempText);
                 speedView1.setText(speedText);
+            }
+        });
+
+        plotButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick (View view)
+            {
+
+                if (gyro != null) {
+                            startActivity(new Intent(ViewBasicRunDataActivity.this, xyPlotActivity.class));
+            }
+            else{
+                Toast.makeText(getApplicationContext(), "Please get values first", Toast.LENGTH_SHORT).show();
+            }
+
+            }
+        });
+
+        pieButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick (View view)
+            {
+
+                if (gyro != null) {
+                    startActivity(new Intent(ViewBasicRunDataActivity.this, pieChartActivity.class));
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "Please get values first", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
@@ -146,8 +189,16 @@ public class ViewBasicRunDataActivity extends Activity {
             );
 
 
+
+
+
+
+
     }
 
+    public double[] getGyro(){
+        return gyro;
+    }
 
 
 }
