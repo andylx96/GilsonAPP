@@ -14,18 +14,28 @@ import android.widget.Toast;
 
 
 import Snowboard.GpsTracker;
+import Snowboard.Snowboard;
 
 public class StartRunActivity extends AppCompatActivity {
 
 
     private Button startButton;
     private Button endButton;
+    double lat1;
+    double lon1;
+    double lat2;
+    double lon2;
 
-    Button btnLoc;
+    double speed;
+    long startTime = 0;
+    long endTime;
 
-    //Start and stop run class???
+
+
+
+    //Start and stop run class
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gps);
         startButton = (Button) findViewById(R.id.startRunButton);
@@ -42,12 +52,15 @@ public class StartRunActivity extends AppCompatActivity {
                 if (l == null) {
                     Toast.makeText(getApplicationContext(), "GPS unable to get Value", Toast.LENGTH_SHORT).show();
                 } else {
-                    double lat = l.getLatitude();
-                    double lon = l.getLongitude();
-                    Toast.makeText(getApplicationContext(), "GPS Lat = " + lat + "\n lon = " + lon, Toast.LENGTH_SHORT).show();
+                    lat1 = l.getLatitude();
+                    lon1 = l.getLongitude();
+                    startTime = System.currentTimeMillis()/1000;
+
+                    Toast.makeText(getApplicationContext(), "GPS Lat = " + lat1 + "\n lon = " + lon1, Toast.LENGTH_SHORT).show();
                     //add to basic run and agg run data
                     // mDatabase.child("Latitude").push().setValue(String.valueOf(lat));
                     // mDatabase.child("Longitude").push().setValue(String.valueOf(lon));
+
 
                 }
             }
@@ -61,15 +74,24 @@ public class StartRunActivity extends AppCompatActivity {
                 if (l == null) {
                     Toast.makeText(getApplicationContext(), "GPS unable to get Value", Toast.LENGTH_SHORT).show();
                 } else {
-                    double lat = l.getLatitude();
-                    double lon = l.getLongitude();
-                    Toast.makeText(getApplicationContext(), "GPS Lat = " + lat + "\n lon = " + lon, Toast.LENGTH_SHORT).show();
+                    lat2 = l.getLatitude();
+                    lon2 = l.getLongitude();
+
+                    gt.setRunLength(lat1, lon1, lat2, lon2);
+
+                    endTime = System.currentTimeMillis()/1000 - startTime;
+                    gt.setRunTime(endTime);
+
+                    Toast.makeText(getApplicationContext(), "distance is"+gt.getRunLength()+"  Time: "+endTime , Toast.LENGTH_SHORT).show();
                     //add to basic run and agg run data
-                    // mDatabase.child("Latitude").push().setValue(String.valueOf(lat));
+
+                    //mDatabase.child("Latitude").push().setValue(String.valueOf(lat));
                     // mDatabase.child("Longitude").push().setValue(String.valueOf(lon));
 
                 }
             }
         });
     }
+
+
 }
