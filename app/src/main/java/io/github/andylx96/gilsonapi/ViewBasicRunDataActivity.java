@@ -25,11 +25,12 @@ import java.io.IOException;
 import java.util.Arrays;
 
 import Snowboard.Snowboard;
+import Snowboard.GpsTracker;
 
 public class ViewBasicRunDataActivity extends Activity {
 
     Snowboard test = new Snowboard();
-
+    GpsTracker gt = new GpsTracker(getBaseContext());
 
     double[] accel = test.getAccelerometer();
     double v1 = accel[0];
@@ -50,17 +51,19 @@ public class ViewBasicRunDataActivity extends Activity {
     double temp = test.getTemp();
     String tempText = String.valueOf(temp);
 
+    double speed = gt.getSpeed();
+    String speedText = String.valueOf(speed);
+
     Button GetData;
     Button Emergency;
     TextView accelView1;
     TextView magAccelView1;
     TextView gyroView1;
     TextView tempView1;
+    TextView speedView1;
 
     DataBaseHelper myDb;
     Button SaveData;
-
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -73,11 +76,10 @@ public class ViewBasicRunDataActivity extends Activity {
         magAccelView1 = findViewById(R.id.magAccelView);
         gyroView1 = findViewById(R.id.gyroView);
         tempView1 = findViewById(R.id.tempView);
+        speedView1 = findViewById(R.id.speedView);
         Emergency = (Button)findViewById(R.id.emer);
 
         SaveData = findViewById(R.id.SaveDataButton);
-
-
 
         Emergency.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,18 +114,16 @@ public class ViewBasicRunDataActivity extends Activity {
         });
 
 
-
         GetData.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick (View view)
             {
-
                 accelView1.setText(accelText);
                 magAccelView1.setText(calcAccelText);
                 gyroView1.setText(gyroText);
                 tempView1.setText(tempText);
-
+                speedView1.setText(speedText);
             }
         });
 
@@ -134,7 +134,9 @@ public class ViewBasicRunDataActivity extends Activity {
                             boolean isInserted = myDb.insertData(Arrays.toString(accel),
                                     calcAccelText,
                                     Arrays.toString(gyro),
-                                    tempText);
+                                    tempText,
+                                    speedText
+                                    ); //FIX ME
                             if(isInserted == true)
                                 Toast.makeText(ViewBasicRunDataActivity.this,"Data Inserted",Toast.LENGTH_LONG).show();
                             else
@@ -142,11 +144,6 @@ public class ViewBasicRunDataActivity extends Activity {
                         }
                     }
             );
-
-
-
-
-
 
 
     }
