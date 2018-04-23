@@ -49,7 +49,8 @@ public class AggregateRunDataActivity extends AppCompatActivity{
                             buffer.append("Magnitude of Acceleration :"+ res.getString(2)+"\n");
                             buffer.append("Gyroscope Data :"+ res.getString(3)+"\n");
                             buffer.append("Temperature Data :"+ res.getString(4)+"\n");
-                            buffer.append("Speed Data: "+ res.getString(5)+"\n\n");
+                            buffer.append("Speed Data: "+ res.getString(5)+"\n");
+                            buffer.append("Date Data: "+ res.getString(6)+"\n\n");
                         }
 
                         // Show all data

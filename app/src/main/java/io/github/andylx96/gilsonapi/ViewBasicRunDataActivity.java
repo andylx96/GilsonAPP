@@ -23,6 +23,8 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 
 import Snowboard.Snowboard;
 import Snowboard.GpsTracker;
@@ -86,6 +88,9 @@ public class ViewBasicRunDataActivity extends Activity {
         pieButton = (Button)findViewById(R.id.pieButton);
 
         SaveData = findViewById(R.id.SaveDataButton);
+
+        Date currentTime = Calendar.getInstance().getTime();
+
 
 
 
@@ -178,7 +183,8 @@ public class ViewBasicRunDataActivity extends Activity {
                                     calcAccelText,
                                     Arrays.toString(gyro),
                                     tempText,
-                                    speedText
+                                    speedText,
+                                    Calendar.getInstance().getTime().toString()
                                     ); //FIX ME
                             if(isInserted == true)
                                 Toast.makeText(ViewBasicRunDataActivity.this,"Data Inserted",Toast.LENGTH_LONG).show();
@@ -200,7 +206,9 @@ public class ViewBasicRunDataActivity extends Activity {
         return gyro;
     }
 
-
+    public DataBaseHelper getMyDb() {
+        return myDb;
+    }
 }
 
 

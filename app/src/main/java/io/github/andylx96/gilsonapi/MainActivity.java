@@ -202,6 +202,12 @@ private Button testButton ;
 
         }
 
+        else if (id == R.id.view_all_id){
+
+            startActivity(new Intent(MainActivity.this,ViewAllRunData.class));
+
+        }
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
