@@ -67,7 +67,8 @@ public class Pair2Activity extends AppCompatActivity {
     private TextView gatt_text;
     private String messageString = null;
     private Button disconnectButton, readDataButton;
-
+    Thread t;
+    boolean continueThread=false;
 
     @Override
     protected void onResume() {
@@ -287,7 +288,7 @@ public class Pair2Activity extends AppCompatActivity {
 //                        bar.setVisibility(View.INVISIBLE);
 //                        loadingText.setVisibility(View.INVISIBLE);
 
-                connectStatus2.setText(connectStatus2.getText() + "\nGATT NOT Sucessful");
+                        connectStatus2.setText(connectStatus2.getText() + "\nGATT NOT Sucessful");
 
                     }
                 });
@@ -346,17 +347,70 @@ public class Pair2Activity extends AppCompatActivity {
             BluetoothGattService service = gatt.getService(uuidService);
             BluetoothGattCharacteristic characteristic = service.getCharacteristic(uuidChar);
 //            characteristic;
-            gatt.readCharacteristic(characteristic);
 //            onCharacteristicRead();
 //gatt.readDescriptor(characteristic.getDescriptor(uuidChar)
 //            gatt.readCharacteristic(characteristic);
 //            onCharacteristicWrite();
+//            TEST?
+//            BluetoothGattCharacteristic characteristicTest = gatt.getService(uuidService).getCharacteristic(uuidChar);
+
+//            TEST
+            characteristic.setWriteType(BluetoothGattCharacteristic.WRITE_TYPE_DEFAULT);
+//            BluetoothGattDescriptor descriptor = characteristic.getDescriptor(uuidService);
+//            descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
+
+
             gatt.setCharacteristicNotification(characteristic, true);
+//            gatt.set
+
+//            gatt.readCharacteristic(characteristic);
 
             readDataButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    gatt.readCharacteristic(characteristic);
+
+
+                        if (continueThread ==true) {
+//                            t.interrupt();
+                            continueThread = false;
+                            readDataButton.setText("Read Data");
+                        }
+
+                    else {
+                        continueThread = true;
+                        t = new Thread() {
+
+
+                            @Override
+                            public void run() {
+
+                                while (continueThread== true) {
+
+                                    try {
+                                        Thread.sleep(1000);  //1000ms = 1 sec
+
+                                        runOnUiThread(new Runnable() {
+
+                                            @Override
+                                            public void run() {
+                                                gatt.readCharacteristic(characteristic);
+
+                                            }
+                                        });
+
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                }
+                            }
+                        };
+
+
+                        readDataButton.setText("Stop Reading Data");
+                        t.start();
+                    }
+
                 }
             });
 
@@ -433,8 +487,8 @@ public class Pair2Activity extends AppCompatActivity {
 //                        bar.setVisibility(View.INVISIBLE);
 //                        loadingText.setVisibility(View.INVISIBLE);
 
-                    gatt_text.setText(gatt_text.getText() + "\nAX: " + ax/32768*8 + " AY: " + ay/32768*8 + " AZ: " + az/32768*8
-                            + "\nGX: " + gx/32768*2000 + " GY: " + gy/32768*2000 + " GZ: " + gz/32768*2000 + "\nte: " + te + "\n");
+                    gatt_text.setText(gatt_text.getText() + "\nAX: " + ax / 32768 * 8 + " AY: " + ay / 32768 * 8 + " AZ: " + az / 32768 * 8
+                            + "\nGX: " + gx / 32768 * 2000 + " GY: " + gy / 32768 * 2000 + " GZ: " + gz / 32768 * 2000 + "\nte: " + te + "\n");
 
                     Log.d(TAG, "Connected");
                 }
@@ -444,21 +498,36 @@ public class Pair2Activity extends AppCompatActivity {
 //            disconnectGattServer();
         }
 
+//        @Override
+//        public void onCharacteristicChanged(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic) {
+//            super.onCharacteristicChanged(gatt, characteristic);
+//            byte[] messageBytes = characteristic.getValue();
+//            String messageString = null;
+//            try {
+//                messageString = new String(messageBytes, "UTF-8");
+////                new String();
+//            } catch (UnsupportedEncodingException e) {
+//                Log.e(TAG, "Unable to convert message bytes to string");
+//            }
+//            Log.d(TAG, "Received message on Char Changed: " + messageString);
+//        }
+
+
         @Override
         public void onCharacteristicChanged(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic) {
             super.onCharacteristicChanged(gatt, characteristic);
-            byte[] messageBytes = characteristic.getValue();
-            String messageString = null;
-            try {
-                messageString = new String(messageBytes, "UTF-8");
-//                new String();
-            } catch (UnsupportedEncodingException e) {
-                Log.e(TAG, "Unable to convert message bytes to string");
-            }
+
+//            byte[] messageBytes = characteristic.getValue();
+//            String messageString = null;
+//            try {
+//                messageString = new String(messageBytes, "UTF-8");
+////                new String();
+//            } catch (UnsupportedEncodingException e) {
+//                Log.e(TAG, "Unable to convert message bytes to string");
+//            }
             Log.d(TAG, "Received message on Char Changed: " + messageString);
+
         }
-
-
     }
 
     public void disconnectGattServer() {
