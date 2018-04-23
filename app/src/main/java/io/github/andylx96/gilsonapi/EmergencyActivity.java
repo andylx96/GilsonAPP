@@ -23,6 +23,8 @@ import Snowboard.GpsTracker;
 
 public class EmergencyActivity extends Permissions {
 
+    private TextView menuText;
+    private TextView instructionsText;
     private TextView setNumberLabel;
     private EditText currentNumber;
     private Button sendMessageButton;
@@ -35,6 +37,8 @@ public class EmergencyActivity extends Permissions {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_emergency);
+        menuText = findViewById(R.id.menuText);
+        instructionsText = findViewById(R.id.instructionsText);
         currentNumber = findViewById(R.id.editPhoneNumber);
         setNumberLabel = findViewById(R.id.phoneNumberLabel);
         sendMessageButton = findViewById(R.id.sendMessageButton);
