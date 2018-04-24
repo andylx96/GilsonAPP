@@ -132,6 +132,13 @@
         app:layout_constraintBaseline_toBaselineOf="@+id/chooseRunButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/chooseRunButton" />
+    <ImageView
+        android:id="@+id/imgView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="30dp"
+        android:scaleType="fitCenter"
+        />
 
     <Button
         android:id="@+id/shareButton"

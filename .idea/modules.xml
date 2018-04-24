@@ -2,13 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Gilson.iml" filepath="$PROJECT_DIR$/Gilson.iml" />
-      <module fileurl="file://$PROJECT_DIR$/GilsonAPP.iml" filepath="$PROJECT_DIR$/GilsonAPP.iml" />
-      <module fileurl="file://$PROJECT_DIR$/PlotResources/PlotResources.iml" filepath="$PROJECT_DIR$/PlotResources/PlotResources.iml" />
+      <module fileurl="file://C:\Users\Kiad\Downloads\GilsonAPPV2\Gilson.iml" filepath="C:\Users\Kiad\Downloads\GilsonAPPV2\Gilson.iml" />
+      <module fileurl="file://C:\Users\Kiad\Downloads\GilsonAPPV2\GilsonAPP.iml" filepath="C:\Users\Kiad\Downloads\GilsonAPPV2\GilsonAPP.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/GilsonAPPV2.iml" filepath="$PROJECT_DIR$/.idea/GilsonAPPV2.iml" />
       <module fileurl="file://$PROJECT_DIR$/PlotResources/PlotResources.iml" filepath="$PROJECT_DIR$/PlotResources/PlotResources.iml" />
       <module fileurl="file://$PROJECT_DIR$/androidplot-core/androidplot-core.iml" filepath="$PROJECT_DIR$/androidplot-core/androidplot-core.iml" />
-      <module fileurl="file://$PROJECT_DIR$/androidplot-core/androidplot-core.iml" filepath="$PROJECT_DIR$/androidplot-core/androidplot-core.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
