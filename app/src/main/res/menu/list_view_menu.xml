@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/AccelX"
+        android:title="Accel X"/>
+    <item
+        android:id="@+id/AccelY"
+        android:title="Accel Y"/>
+    <item
+        android:id="@+id/AccelZ"
+        android:title="Accel Z"/>
+
+    <item
+        android:id="@+id/GyroX"
+        android:title="Gyro X"/>
+
+    <item
+        android:id="@+id/GyroY"
+        android:title="Gyro Y"/>
+
+    <item
+        android:id="@+id/GyroZ"
+        android:title="Gyro Z"/>
+
+    <item
+        android:id="@+id/TempMenuID"
+        android:title="Temp"/>
+</menu>

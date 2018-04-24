@@ -74,7 +74,7 @@ android {
     lintOptions {
         abortOnError false
     }
-    buildToolsVersion theBuildToolsVersion
+    buildToolsVersion '26.0.2'
 }
 
 group = 'com.androidplot'

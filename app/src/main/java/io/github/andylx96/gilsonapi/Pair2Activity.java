@@ -635,5 +635,11 @@ public class Pair2Activity extends AppCompatActivity {
 //        Log.d("Received message: " + messageString);
 //    }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        disconnectGattServer();
+        this.finish();
+    }
 }
 
