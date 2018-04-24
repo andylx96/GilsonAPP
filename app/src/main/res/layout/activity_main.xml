@@ -5,10 +5,10 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/main"
+    android:background="@drawable/mount"
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
-    <!--tools:context="io.github.andylx96.gilsonapi.MainActivity">-->
+
 
     <include
         layout="@layout/app_bar_main"
