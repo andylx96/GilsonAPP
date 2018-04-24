@@ -37,12 +37,14 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 
 import java.io.UnsupportedEncodingException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.UUID;
 
 public class Pair2Activity extends AppCompatActivity {
@@ -77,8 +79,10 @@ public class Pair2Activity extends AppCompatActivity {
     private TextView gatt_text;
     private String messageString = null;
     private Button disconnectButton, readDataButton;
-    Thread t;
+    Thread t, t2;
     boolean continueThread = false;
+
+    boolean continueGenThread = false;
     DataBaseHelper myDb;
     private ArrayList<Double> AccelX, AccelY, AccelZ, GyroX, GryoY, GryoZ, Temp;
     float ax, ay, az, gx, gy, gz, te;
@@ -87,10 +91,13 @@ public class Pair2Activity extends AppCompatActivity {
     ArrayList<ArrayList> gyroData;
     ArrayList<Double> tempature;
     private int crashCount = 0;
+    private Button genButton;
 
     private Double previousAX = 0.0, previousAY = 0.0, previousAZ = 0.0;
     private ProgressDialog progressDialog;
-private boolean pairReady = false;
+    private boolean pairReady = false;
+    private CountDownTimer cdTimer;
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -123,6 +130,7 @@ private boolean pairReady = false;
         gatt_text = (TextView) findViewById(R.id.gatt_data);
         disconnectButton = (Button) findViewById(R.id.disconnectButton);
         readDataButton = (Button) findViewById(R.id.readDataButton);
+        genButton = (Button) findViewById(R.id.genData);
         progressDialog = new ProgressDialog(this);
         setButtonListener();
     }
@@ -142,6 +150,105 @@ private boolean pairReady = false;
             @Override
             public void onClick(View view) {
                 stopScan();
+            }
+        });
+
+        genButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+//
+                if (continueGenThread == true) {
+//                            t.interrupt();
+                    continueGenThread = false;
+                    genButton.setText("Generate Data");
+
+
+                    Gson gson = new Gson();
+                    String accelJson = gson.toJson(accelData);
+                    String gyroJson = gson.toJson(gyroData);
+                    String tempJson = gson.toJson(tempature);
+
+                    boolean isInserted = myDb.insertData(
+                            accelJson,
+                            "0.0",
+                            gyroJson,
+                            tempJson,
+                            "0.0",
+                            Calendar.getInstance().getTime().toString(),
+                            String.valueOf(crashCount)); //FIX ME
+                    if (isInserted == true)
+                        Toast.makeText(Pair2Activity.this, "Data Inserted", Toast.LENGTH_LONG).show();
+                    else
+                        Toast.makeText(Pair2Activity.this, "Data not Inserted", Toast.LENGTH_LONG).show();
+
+//RESET DATA
+                    crashCount = 0;
+                    tempature = new ArrayList<>();
+
+                    gyroData = new ArrayList<>();
+                    accelData = new ArrayList<>();
+                } else {
+                    continueGenThread = true;
+                    t2 = new Thread() {
+
+
+                        @Override
+                        public void run() {
+
+                            while (continueGenThread == true) {
+
+                                try {
+                                    Thread.sleep(1000);  //1000ms = 1 sec
+
+                                    runOnUiThread(new Runnable() {
+
+                                        @Override
+                                        public void run() {
+
+                                            ArrayList<Double> accelList, gyroList;
+                                            accelList = new ArrayList<>();
+                                            gyroList = new ArrayList<>();
+
+                                            DecimalFormat df3 = new DecimalFormat(".###");
+                                            Random rand = new Random();
+                                            double genAx = Double.parseDouble(df3.format(Math.random())) + rand.nextInt(6-0)+ 0, genAy = Double.parseDouble(df3.format(Math.random())),
+                                                    genAz = Double.parseDouble(df3.format(Math.random())), genGx = Double.parseDouble(df3.format(Math.random())),
+                                                    genGy = Double.parseDouble(df3.format(Math.random())), genGz = Double.parseDouble(df3.format(Math.random())), genTmp = Double.parseDouble(df3.format(45 + (50 - 45) * rand.nextDouble()));
+
+                                            accelList.add((double) genAx);
+                                            accelList.add((double) genAy);
+                                            accelList.add((double) genAz);
+                                            gyroList.add((double) genGx);
+                                            gyroList.add((double) genGy);
+                                            gyroList.add((double) genGz);
+                                            tempature.add((double) genTmp);
+
+                                            gatt_text.setText(gatt_text.getText() + "\nAX: " + genAx + " AY: " + genAy + " AZ: " + genAz
+                                                    + "\nGX: " + genGx + " GY: " + genGy + " GZ: " + genGz + "\nte: " + genTmp + "\n");
+
+
+                                            saveToDB(accelList, gyroList, tempature);
+                                            checkForCrash(genAx, genAy, genAz);
+
+                                        }
+                                    });
+
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        }
+                    };
+
+
+                    genButton.setText("Stop Generating Data");
+                    t2.start();
+                }
+
+//
+
             }
         });
 
@@ -260,7 +367,7 @@ private boolean pairReady = false;
         if (mScanResults.isEmpty()) {
             progressDialog.dismiss();
 
-            Toast.makeText(this,"No Devices Found",Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "No Devices Found", Toast.LENGTH_LONG).show();
             connectStatus2.setText(connectStatus2.getText() + "\nNo Devices Found");
 
             return;
@@ -397,91 +504,90 @@ private boolean pairReady = false;
             readDataButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-if(pairReady == true){
+                    if (pairReady == true) {
 
-                    if (continueThread == true) {
+                        if (continueThread == true) {
 //                            t.interrupt();
-                        continueThread = false;
-                        readDataButton.setText("Read Data");
+                            continueThread = false;
+                            readDataButton.setText("Read Data");
 
 
-                        Gson gson = new Gson();
-                        String accelJson = gson.toJson(accelData);
-                        String gyroJson = gson.toJson(gyroData);
-                        String tempJson = gson.toJson(tempature);
+                            Gson gson = new Gson();
+                            String accelJson = gson.toJson(accelData);
+                            String gyroJson = gson.toJson(gyroData);
+                            String tempJson = gson.toJson(tempature);
 
-                        boolean isInserted = myDb.insertData(
-                                accelJson,
-                                "0.0",
-                                gyroJson,
-                                tempJson,
-                                "0.0",
-                                Calendar.getInstance().getTime().toString()
-
-                        ); //FIX ME
-                        if (isInserted == true)
-                            Toast.makeText(Pair2Activity.this, "Data Inserted", Toast.LENGTH_LONG).show();
-                        else
-                            Toast.makeText(Pair2Activity.this, "Data not Inserted", Toast.LENGTH_LONG).show();
+                            boolean isInserted = myDb.insertData(
+                                    accelJson,
+                                    "0.0",
+                                    gyroJson,
+                                    tempJson,
+                                    "0.0",
+                                    Calendar.getInstance().getTime().toString(),
+                                    String.valueOf(crashCount)
+                            ); //FIX ME
+                            if (isInserted == true)
+                                Toast.makeText(Pair2Activity.this, "Data Inserted", Toast.LENGTH_LONG).show();
+                            else
+                                Toast.makeText(Pair2Activity.this, "Data not Inserted", Toast.LENGTH_LONG).show();
 
 //RESET DATA
-                        crashCount = 0;
-                        tempature = new ArrayList<>();
+                            crashCount = 0;
+                            tempature = new ArrayList<>();
 
-                        gyroData = new ArrayList<>();
-                        accelData = new ArrayList<>();
-                    } else {
-                        continueThread = true;
-                        t = new Thread() {
-
-
-                            @Override
-                            public void run() {
-
-                                while (continueThread == true) {
-
-                                    try {
-                                        Thread.sleep(1000);  //1000ms = 1 sec
-
-                                        runOnUiThread(new Runnable() {
-
-                                            @Override
-                                            public void run() {
-                                                gatt.readCharacteristic(characteristic);
-                                                ArrayList<Double> accelList, gyroList;
-                                                accelList = new ArrayList<>();
-                                                gyroList = new ArrayList<>();
-
-                                                accelList.add((double)  ax / 32768 * 8);
-                                                accelList.add((double) ay / 32768 * 8);
-                                                accelList.add((double)  az / 32768 * 8);
-                                                gyroList.add((double) gx / 32768 * 2000);
-                                                gyroList.add((double) gy / 32768 * 2000);
-                                                gyroList.add((double) gz / 32768 * 2000);
-                                                tempature.add((double) te);
+                            gyroData = new ArrayList<>();
+                            accelData = new ArrayList<>();
+                        } else {
+                            continueThread = true;
+                            t = new Thread() {
 
 
+                                @Override
+                                public void run() {
 
-                                                saveToDB(accelList, gyroList, tempature);
-checkForCrash((double)  ax / 32768 * 8,(double)  ay / 32768 * 8,(double)  az / 32768 * 8);
+                                    while (continueThread == true) {
 
-                                            }
-                                        });
+                                        try {
+                                            Thread.sleep(1000);  //1000ms = 1 sec
 
-                                    } catch (InterruptedException e) {
-                                        e.printStackTrace();
+                                            runOnUiThread(new Runnable() {
+
+                                                @Override
+                                                public void run() {
+                                                    gatt.readCharacteristic(characteristic);
+                                                    ArrayList<Double> accelList, gyroList;
+                                                    accelList = new ArrayList<>();
+                                                    gyroList = new ArrayList<>();
+
+                                                    accelList.add((double) ax / 32768 * 8);
+                                                    accelList.add((double) ay / 32768 * 8);
+                                                    accelList.add((double) az / 32768 * 8);
+                                                    gyroList.add((double) gx / 32768 * 2000);
+                                                    gyroList.add((double) gy / 32768 * 2000);
+                                                    gyroList.add((double) gz / 32768 * 2000);
+                                                    tempature.add((double) te);
+
+
+                                                    saveToDB(accelList, gyroList, tempature);
+                                                    checkForCrash((double) ax / 32768 * 8, (double) ay / 32768 * 8, (double) az / 32768 * 8);
+
+                                                }
+                                            });
+
+                                        } catch (InterruptedException e) {
+                                            e.printStackTrace();
+                                        }
+
                                     }
-
                                 }
-                            }
-                        };
+                            };
 
 
-                        readDataButton.setText("Stop Reading Data");
-                        t.start();
-                    }
+                            readDataButton.setText("Stop Reading Data");
+                            t.start();
+                        }
 
-                } else showMessage("Pair","Please Pair Your Phone First");
+                    } else showMessage("Pair", "Please Pair Your Phone First");
 
                 }
             });
@@ -630,9 +736,9 @@ checkForCrash((double)  ax / 32768 * 8,(double)  ay / 32768 * 8,(double)  az / 3
 
     }
 
-    public void checkForCrash(Double ax, Double ay,Double  az){
+    public void checkForCrash(Double ax, Double ay, Double az) {
 
-        if(Math.abs(previousAX - ax)> 5){
+        if (Math.abs(previousAX - ax) > 4) {
 
             crashCount++;
             AlertDialog alertDialog = new AlertDialog.Builder(Pair2Activity.this).create();
@@ -643,20 +749,23 @@ checkForCrash((double)  ax / 32768 * 8,(double)  ay / 32768 * 8,(double)  az / 3
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     dialogInterface.cancel();
+                    cdTimer.cancel();
+
                 }
             });
 
             alertDialog.show();   //
 
-            new CountDownTimer(10000, 1000) {
+          cdTimer =  new CountDownTimer(10000, 1000) {
                 @Override
                 public void onTick(long millisUntilFinished) {
                     alertDialog.setMessage("00:" + (millisUntilFinished / 1000));
+
                 }
 
                 @Override
                 public void onFinish() {
-                    Intent intent = new Intent(Pair2Activity.this,EmergencyActivity.class);
+                    Intent intent = new Intent(Pair2Activity.this, EmergencyActivity.class);
                     startActivity(intent);
 
                 }
@@ -700,6 +809,7 @@ checkForCrash((double)  ax / 32768 * 8,(double)  ay / 32768 * 8,(double)  az / 3
         disconnectGattServer();
         this.finish();
     }
+
     public void showMessage(String title, String Message) {
         android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
         builder.setCancelable(true);

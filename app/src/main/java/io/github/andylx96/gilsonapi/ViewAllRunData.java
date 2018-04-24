@@ -1014,7 +1014,9 @@ public class ViewAllRunData extends AppCompatActivity {
                         buffer.append("Gyroscope Data :" + res.getString(3) + "\n");
                         buffer.append("Temperature Data :" + res.getString(4) + "\n");
                         buffer.append("Speed Data : " + res.getString(5) + "\n");
+
                         buffer.append("Date : " + res.getString(6) + "\n");
+                        buffer.append("Crash Count : " + res.getString(7) + "\n");
                         buffer.append("Res is : " + res.getCount() + "\n\n");
                         buffer.append("I is: " + i + "\n\n");
                         buffer.append("ID is: " + res.getString(0) + "\n\n");

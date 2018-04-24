@@ -69,6 +69,7 @@ public class ViewBasicRunDataActivity extends Activity {
     DataBaseHelper myDb;
     Button SaveData;
 
+    CountDownTimer cdTimer;
 
 
     @Override
@@ -93,7 +94,6 @@ public class ViewBasicRunDataActivity extends Activity {
 
 
 
-
         Emergency.setOnClickListener(new View.OnClickListener() {
             @Override
                 public void onClick(View view) {
@@ -105,12 +105,14 @@ public class ViewBasicRunDataActivity extends Activity {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         dialogInterface.cancel();
+                        cdTimer.cancel();
+
                     }
                 });
 
                 alertDialog.show();   // 
 
-                new CountDownTimer(10000, 1000) {
+              cdTimer =  new CountDownTimer(10000, 1000) {
                     @Override
                     public void onTick(long millisUntilFinished) {
                         alertDialog.setMessage("00:" + (millisUntilFinished / 1000));
@@ -184,7 +186,7 @@ public class ViewBasicRunDataActivity extends Activity {
                                     Arrays.toString(gyro),
                                     tempText,
                                     speedText,
-                                    Calendar.getInstance().getTime().toString()
+                                    Calendar.getInstance().getTime().toString(),"0"
                                     ); //FIX ME
                             if(isInserted == true)
                                 Toast.makeText(ViewBasicRunDataActivity.this,"Data Inserted",Toast.LENGTH_LONG).show();
