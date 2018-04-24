@@ -1,12 +1,8 @@
 package io.github.andylx96.gilsonapi;
 
 import android.app.Activity;
-import android.content.ActivityNotFoundException;
-import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -14,14 +10,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Date;
-import java.util.Random;
 
 
 public class SocialMediaActivity extends Activity {
@@ -34,11 +27,13 @@ public class SocialMediaActivity extends Activity {
     TextView magAccelView1;
     TextView gyroView1;
     TextView tempView1;
+    TextView speedView1;
 
     String accelText2 = VB.accelText;
     String calcAccelText2 = VB.calcAccelText;
     String gyroText2 = VB.gyroText;
     String tempText2 = VB.tempText;
+    String speedText2 = VB.speedText;
 
 
     @Override
@@ -52,6 +47,7 @@ public class SocialMediaActivity extends Activity {
         magAccelView1 = findViewById(R.id.magAccelView);
         gyroView1 = findViewById(R.id.gyroView);
         tempView1 = findViewById(R.id.tempView);
+        speedView1 = findViewById(R.id.speedView);
 
 
         chooseRunButton.setOnClickListener(new View.OnClickListener()
@@ -64,6 +60,7 @@ public class SocialMediaActivity extends Activity {
                 magAccelView1.setText(calcAccelText2);
                 gyroView1.setText(gyroText2);
                 tempView1.setText(tempText2);
+                speedView1.setText(speedText2);
 
             }
         });
@@ -77,15 +74,11 @@ public class SocialMediaActivity extends Activity {
                 Bitmap bitmap = takeScreenshot();
                 saveBitmap(bitmap);
 
-
-
-
             }
         });
 
 
     }
-
 
     public Bitmap takeScreenshot() {
         View rootView = findViewById(android.R.id.content).getRootView();
