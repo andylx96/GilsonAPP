@@ -23,6 +23,7 @@ public class SocialMediaActivity extends Activity {
 
     Button chooseRunButton;
     Button saveImageButton;
+    Button shareButton;
     TextView accelView1;
     TextView magAccelView1;
     TextView gyroView1;
@@ -43,6 +44,7 @@ public class SocialMediaActivity extends Activity {
 
         chooseRunButton = findViewById(R.id.chooseRunButton);
         saveImageButton = findViewById(R.id.SaveImageButton);
+        shareButton = findViewById(R.id.shareButton);
         accelView1 = findViewById(R.id.accelView);
         magAccelView1 = findViewById(R.id.magAccelView);
         gyroView1 = findViewById(R.id.gyroView);
@@ -77,6 +79,15 @@ public class SocialMediaActivity extends Activity {
             }
         });
 
+        shareButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick (View view) {
+
+                shareIntent();
+            }
+        });
+
 
     }
 
@@ -87,10 +98,9 @@ public class SocialMediaActivity extends Activity {
     }
 
     public void saveBitmap(Bitmap bitmap) {
-        String mPath = Environment.getExternalStorageDirectory().toString() + "/" + ".jpg";
-        FileOutputStream fos;
         try {
-            fos = new FileOutputStream(mPath);
+            String mPath = Environment.getExternalStorageDirectory().toString() + "/" + ".jpg";
+            FileOutputStream fos = new FileOutputStream(mPath);
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
             fos.flush();
             fos.close();
@@ -104,7 +114,7 @@ public class SocialMediaActivity extends Activity {
     private void shareIntent(){
         Intent share = new Intent(Intent.ACTION_SEND);
         share.setType("image/*");
-        String imagePath = Environment.getExternalStorageDirectory() + "/myImage.png";
+        String imagePath = Environment.getExternalStorageDirectory() + "/" + ".jpg";
         File imageFileToShare = new File(imagePath);
         Uri uri = Uri.fromFile(imageFileToShare);
         share.putExtra(Intent.EXTRA_STREAM, uri);
