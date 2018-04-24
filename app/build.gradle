@@ -34,4 +34,6 @@ dependencies {
     compile 'com.android.support:design:26.0.1'
     compile project(':androidplot-core')
     compile 'com.crittercism:crittercism-android-agent:5.4.0'
+    compile 'com.google.code.gson:gson:2.8.2'
+
 }

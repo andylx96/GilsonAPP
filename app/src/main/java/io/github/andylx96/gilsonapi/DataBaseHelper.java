@@ -17,7 +17,7 @@ import java.util.List;
 
 public class DataBaseHelper extends SQLiteOpenHelper {
 
-    public static final String DATABASE_NAME = "Snowboard3.db";
+    public static final String DATABASE_NAME = "Snowboard4.db";
     public static final String TABLE_NAME = "snowboard_data_table";
     public static final String COL_1 = "ID";
     public static final String COL_2 = "AccelData";

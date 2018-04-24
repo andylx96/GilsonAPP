@@ -17,7 +17,7 @@ public class SplashScreenActivity extends AppCompatActivity {
 
         ImageView imageView = (ImageView)findViewById(R.id.imageView);
 
-        imageView.setImageResource(R.drawable.gilsonlogo);
+//        imageView.setImageResource(R.drawable.gilsonlogo);
 
         new Handler().postDelayed(new Runnable(){
             @Override

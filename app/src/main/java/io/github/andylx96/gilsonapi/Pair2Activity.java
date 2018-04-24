@@ -28,9 +28,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,7 +73,14 @@ public class Pair2Activity extends AppCompatActivity {
     private String messageString = null;
     private Button disconnectButton, readDataButton;
     Thread t;
-    boolean continueThread=false;
+    boolean continueThread = false;
+    DataBaseHelper myDb;
+    private ArrayList<Double> AccelX, AccelY, AccelZ, GyroX, GryoY, GryoZ, Temp;
+    float ax, ay, az, gx, gy, gz, te;
+    ArrayList<ArrayList> accelData;
+
+    ArrayList<ArrayList> gyroData;
+    ArrayList<Double> tempature;
 
     @Override
     protected void onResume() {
@@ -89,11 +101,13 @@ public class Pair2Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pair2);
 
+        myDb = new DataBaseHelper(this);
 
         BluetoothManager bluetoothManager = (BluetoothManager) getSystemService(BLUETOOTH_SERVICE);
         mBluetoothAdapter = bluetoothManager.getAdapter();
-
-
+        gyroData = new ArrayList<>();
+        accelData = new ArrayList<>();
+        tempature = new ArrayList<>();
 //            connectStatus = (TextView) findViewById(R.id.connectStatus);
         connectStatus2 = (TextView) findViewById(R.id.connectionStatus2);
         connectButton = (Button) findViewById(R.id.connectDeviceButton);
@@ -370,13 +384,36 @@ public class Pair2Activity extends AppCompatActivity {
                 public void onClick(View view) {
 
 
-                        if (continueThread ==true) {
+                    if (continueThread == true) {
 //                            t.interrupt();
-                            continueThread = false;
-                            readDataButton.setText("Read Data");
-                        }
+                        continueThread = false;
+                        readDataButton.setText("Read Data");
 
-                    else {
+
+                        Gson gson = new Gson();
+                        String accelJson = gson.toJson(accelData);
+                        String gyroJson = gson.toJson(gyroData);
+                        String tempJson = gson.toJson(tempature);
+
+                        boolean isInserted = myDb.insertData(
+                                accelJson,
+                                "0.0",
+                                gyroJson,
+                                tempJson,
+                                "0.0",
+                                Calendar.getInstance().getTime().toString()
+                        ); //FIX ME
+                        if (isInserted == true)
+                            Toast.makeText(Pair2Activity.this, "Data Inserted", Toast.LENGTH_LONG).show();
+                        else
+                            Toast.makeText(Pair2Activity.this, "Data not Inserted", Toast.LENGTH_LONG).show();
+
+
+                        tempature = new ArrayList<>();
+
+                        gyroData = new ArrayList<>();
+                        accelData = new ArrayList<>();
+                    } else {
                         continueThread = true;
                         t = new Thread() {
 
@@ -384,7 +421,7 @@ public class Pair2Activity extends AppCompatActivity {
                             @Override
                             public void run() {
 
-                                while (continueThread== true) {
+                                while (continueThread == true) {
 
                                     try {
                                         Thread.sleep(1000);  //1000ms = 1 sec
@@ -394,6 +431,22 @@ public class Pair2Activity extends AppCompatActivity {
                                             @Override
                                             public void run() {
                                                 gatt.readCharacteristic(characteristic);
+                                                ArrayList<Double> accelList, gyroList;
+                                                accelList = new ArrayList<>();
+                                                gyroList = new ArrayList<>();
+
+                                                accelList.add((double)  ax / 32768 * 8);
+                                                accelList.add((double) ay / 32768 * 8);
+                                                accelList.add((double)  az / 32768 * 8);
+                                                gyroList.add((double) gx / 32768 * 2000);
+                                                gyroList.add((double) gy / 32768 * 2000);
+                                                gyroList.add((double) gz / 32768 * 2000);
+                                                tempature.add((double) te);
+
+
+
+                                                saveToDB(accelList, gyroList, tempature);
+
 
                                             }
                                         });
@@ -460,19 +513,19 @@ public class Pair2Activity extends AppCompatActivity {
 
             byte[] test = new byte[]{messageBytes[0]};
 
-            float ax = (short) (((axByte[0] & 0xFF) << 8) | (axByte[1] & 0xFF));
+            ax = (short) (((axByte[0] & 0xFF) << 8) | (axByte[1] & 0xFF));
 
-            float ay = (short) (((ayByte[0] & 0xFF) << 8) | (ayByte[1] & 0xFF));
+            ay = (short) (((ayByte[0] & 0xFF) << 8) | (ayByte[1] & 0xFF));
 
-            float az = (short) (((azByte[0] & 0xFF) << 8) | (azByte[1] & 0xFF));
+            az = (short) (((azByte[0] & 0xFF) << 8) | (azByte[1] & 0xFF));
 
-            float gx = (short) (((gxByte[0] & 0xFF) << 8) | (gxByte[1] & 0xFF));
+            gx = (short) (((gxByte[0] & 0xFF) << 8) | (gxByte[1] & 0xFF));
 
-            float gy = (short) (((gyByte[0] & 0xFF) << 8) | (gyByte[1] & 0xFF));
+            gy = (short) (((gyByte[0] & 0xFF) << 8) | (gyByte[1] & 0xFF));
 
-            float gz = (short) (((gzByte[0] & 0xFF) << 8) | (gzByte[1] & 0xFF));
+            gz = (short) (((gzByte[0] & 0xFF) << 8) | (gzByte[1] & 0xFF));
 
-            float te = (short) (((teByte[0] & 0xFF) << 8) | (teByte[1] & 0xFF));
+            te = (short) (((teByte[0] & 0xFF) << 8) | (teByte[1] & 0xFF));
 
 
             messageString = new String(test);
@@ -537,6 +590,25 @@ public class Pair2Activity extends AppCompatActivity {
             mGatt.close();
         }
         Log.d(TAG, "DC");
+    }
+
+    public void saveToDB(ArrayList<Double> accelList, ArrayList<Double> gyroList, ArrayList<Double> tempatureList) {
+
+//        ArrayList<Double> accelList = new ArrayList<>();
+//        accelList.add(ax);
+//        accelList.add(ay);
+//        accelList.add(az);
+        accelData.add(accelList);
+
+
+//        ArrayList<Double> gyroList = new ArrayList<>();
+//        gyroList.add(gx);
+//        gyroList.add(gy);
+//        gyroList.add(gz);
+        gyroData.add(gyroList);
+
+//        tempature = tempatureList;
+
     }
 
 
