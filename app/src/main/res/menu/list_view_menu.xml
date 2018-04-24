@@ -25,4 +25,12 @@
     <item
         android:id="@+id/TempMenuID"
         android:title="Temp"/>
+
+    <item
+        android:id="@+id/AggDataID"
+        android:title="View Aggregate Data"/>
+
+    <item
+        android:id="@+id/CrashCountID"
+        android:title="View Crash Count"/>
 </menu>

@@ -58,6 +58,7 @@ public class ViewAllRunData extends AppCompatActivity {
     View mView;
     AlertDialog.Builder mBuilder;
     final Number[] domainLabels = {0, 1, 2, 3, 6, 7, 8, 9, 10, 13, 14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30};
+    int crashCounter;
 
 
     @Override
@@ -735,6 +736,66 @@ public class ViewAllRunData extends AppCompatActivity {
 
 
                 return true;
+
+            case R.id.AggDataID:
+
+                double totalAccelX = 0.0;
+                double avgAccelX = 0.0;
+                for (int i = 0; i < tempAccelArrayX.length; i++){
+                    totalAccelX= totalAccelX +tempAccelArrayX[i] ;}
+                avgAccelX = totalAccelX/tempAccelArrayX.length;
+
+                double totalAccelY = 0.0;
+                double avgAccelY = 0.0;
+                for (int i = 0; i < tempAccelArrayY.length; i++){
+                    totalAccelY= totalAccelY +tempAccelArrayY[i] ;}
+                avgAccelY = totalAccelY/tempAccelArrayY.length;
+
+                double totalAccelZ = 0.0;
+                double avgAccelZ = 0.0;
+                for (int i = 0; i < tempAccelArrayZ.length; i++){
+                    totalAccelZ= totalAccelZ +tempAccelArrayZ[i] ;}
+                avgAccelZ = totalAccelZ/tempAccelArrayZ.length;
+
+
+                double totalGyroX = 0.0;
+                double avgGyroX = 0.0;
+                for (int i = 0; i < tempGyroArrayX.length; i++){
+                    totalGyroX= totalGyroX +tempGyroArrayX[i] ;}
+                avgGyroX = totalGyroX/tempGyroArrayX.length;
+
+                double totalGyroY = 0.0;
+                double avgGyroY = 0.0;
+                for (int i = 0; i < tempGyroArrayY.length; i++){
+                    totalGyroY= totalGyroY +tempGyroArrayY[i] ;}
+                avgGyroY = totalGyroY/tempGyroArrayY.length;
+
+                double totalGyroZ = 0.0;
+                double avgGyroZ = 0.0;
+                for (int i = 0; i < tempGyroArrayZ.length; i++){
+                    totalGyroZ= totalGyroZ +tempGyroArrayZ[i] ;}
+                avgGyroZ = totalGyroZ/tempGyroArrayZ.length;
+
+                double totalTemp = 0.0;
+                double avgTemp = 0.0;
+                for (int i = 0; i < tempTempArray.length; i++){
+                    totalTemp= totalTemp +tempTempArray[i] ;}
+                avgTemp = totalTemp/tempTempArray.length;
+
+
+
+
+
+
+                showMessage("Agg Data","Avg Accel X: " + avgAccelX + "\nAvg Accel Y: " + avgAccelY + "\nAvg Accel Z: " + avgAccelZ
+                + "\nAvg Gyro X: " + avgGyroX + "\nAvg Gyro Y: " + avgGyroY+ "\nAvg Gyro Z: " + avgGyroZ + "\n Avg Temp: "+ avgTemp);
+
+
+
+                return true;
+            case R.id.CrashCountID:
+                showMessage("Crash Count", String.valueOf(crashCounter));
+                return true;
         }
         return super.onContextItemSelected(item);
     }
@@ -798,6 +859,7 @@ public class ViewAllRunData extends AppCompatActivity {
                         accelDoubleListGet = gson.fromJson(res.getString(1), ArrayList.class);
                 gyroDoubleListGet = gson.fromJson(res.getString(3), ArrayList.class);
                 tempDoubleListGet = gson.fromJson(res.getString(4), ArrayList.class);
+                crashCounter = Integer.parseInt(res.getString(7));
 
                         Toast.makeText(ViewAllRunData.this, "match Found", Toast.LENGTH_SHORT).show();
 
