@@ -96,7 +96,7 @@ public class ViewBasicRunDataActivity extends Activity {
 
         Emergency.setOnClickListener(new View.OnClickListener() {
             @Override
-               public void onClick(View view) {
+                public void onClick(View view) {
                 AlertDialog alertDialog = new AlertDialog.Builder(ViewBasicRunDataActivity.this).create();
                 alertDialog.setTitle("Emergency crash sending help in");
                 alertDialog.setMessage("00:10");

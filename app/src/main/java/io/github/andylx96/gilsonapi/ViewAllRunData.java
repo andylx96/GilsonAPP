@@ -365,7 +365,7 @@ public class ViewAllRunData extends AppCompatActivity {
                 plot.clear();
 
                 XYSeries series4 = new SimpleXYSeries(
-                        Arrays.asList(tempGyroArrayX), SimpleXYSeries.ArrayFormat.Y_VALS_ONLY, "Accel Z");
+                        Arrays.asList(tempGyroArrayX), SimpleXYSeries.ArrayFormat.Y_VALS_ONLY, "Gyro X");
 
 
                 LineAndPointFormatter series4Format = new LineAndPointFormatter(Color.RED, Color.GREEN, Color.BLUE, null);
@@ -458,7 +458,7 @@ public class ViewAllRunData extends AppCompatActivity {
                 plot.clear();
 
                 XYSeries series5 = new SimpleXYSeries(
-                        Arrays.asList(tempGyroArrayY), SimpleXYSeries.ArrayFormat.Y_VALS_ONLY, "Accel Z");
+                        Arrays.asList(tempGyroArrayY), SimpleXYSeries.ArrayFormat.Y_VALS_ONLY, "Gyro Y");
 
 
                 LineAndPointFormatter series5Format = new LineAndPointFormatter(Color.RED, Color.GREEN, Color.BLUE, null);
@@ -552,7 +552,7 @@ public class ViewAllRunData extends AppCompatActivity {
                 plot.clear();
 
                 XYSeries series6 = new SimpleXYSeries(
-                        Arrays.asList(tempGyroArrayZ), SimpleXYSeries.ArrayFormat.Y_VALS_ONLY, "Accel Z");
+                        Arrays.asList(tempGyroArrayZ), SimpleXYSeries.ArrayFormat.Y_VALS_ONLY, "Gyro Z");
 
 
                 LineAndPointFormatter series6Format = new LineAndPointFormatter(Color.RED, Color.GREEN, Color.BLUE, null);
@@ -646,7 +646,7 @@ public class ViewAllRunData extends AppCompatActivity {
                 plot.clear();
 
                 XYSeries series7 = new SimpleXYSeries(
-                        Arrays.asList(tempTempArray), SimpleXYSeries.ArrayFormat.Y_VALS_ONLY, "Accel Z");
+                        Arrays.asList(tempTempArray), SimpleXYSeries.ArrayFormat.Y_VALS_ONLY, "Temp");
 
 
                 LineAndPointFormatter series7Format = new LineAndPointFormatter(Color.RED, Color.GREEN, Color.BLUE, null);
@@ -814,6 +814,8 @@ public class ViewAllRunData extends AppCompatActivity {
 //                            Get Every Aceel X
                     tempAccelListX.add((Double) accelDoubleListGet.get(j).get(0));
                 }
+//                Remove due to 0s on start up
+                tempAccelListX.remove(0);
                 tempAccelArrayX = tempAccelListX.toArray(new Double[tempAccelListX.size()]);
 
 
@@ -823,6 +825,9 @@ public class ViewAllRunData extends AppCompatActivity {
                     tempAccelListY.add((Double) accelDoubleListGet.get(j).get(1));
                 }
 
+//                Remove due to 0s on start up
+                tempAccelListY.remove(0);
+
                 tempAccelArrayY = tempAccelListY.toArray(new Double[tempAccelListY.size()]);
 
                 ArrayList<Double> tempAccelListZ = new ArrayList<>();
@@ -830,6 +835,10 @@ public class ViewAllRunData extends AppCompatActivity {
 //                            Get Every Aceel Z
                     tempAccelListZ.add((Double) accelDoubleListGet.get(j).get(2));
                 }
+
+//                Remove due to 0s on start up
+                tempAccelListZ.remove(0);
+
                 tempAccelArrayZ = tempAccelListZ.toArray(new Double[tempAccelListZ.size()]);
 
                 ArrayList<Double> tempGyroListX = new ArrayList<>();
@@ -837,6 +846,10 @@ public class ViewAllRunData extends AppCompatActivity {
 //                            Get Every Aceel Z
                     tempGyroListX.add((Double) gyroDoubleListGet.get(j).get(0));
                 }
+
+//                Remove due to 0s on start up
+                tempGyroListX.remove(0);
+
                 tempGyroArrayX = tempGyroListX.toArray(new Double[tempGyroListX.size()]);
 
                 ArrayList<Double> tempGyroListY = new ArrayList<>();
@@ -844,6 +857,8 @@ public class ViewAllRunData extends AppCompatActivity {
 //                            Get Every Aceel Z
                     tempGyroListY.add((Double) gyroDoubleListGet.get(j).get(1));
                 }
+//                Remove due to 0s on start up
+                tempGyroListY.remove(0);
                 tempGyroArrayY = tempGyroListY.toArray(new Double[tempGyroListY.size()]);
 
                 ArrayList<Double> tempGyroListZ = new ArrayList<>();
@@ -851,6 +866,9 @@ public class ViewAllRunData extends AppCompatActivity {
 //                            Get Every Aceel Z
                     tempGyroListZ.add((Double) gyroDoubleListGet.get(j).get(2));
                 }
+
+//                Remove due to 0s on start up
+                tempGyroListZ.remove(0);
                 tempGyroArrayZ = tempGyroListZ.toArray(new Double[tempGyroListZ.size()]);
 
 
@@ -858,6 +876,8 @@ public class ViewAllRunData extends AppCompatActivity {
 
 
 
+//                Remove due to 0s on start up
+                tempDoubleListGet.remove(0);
                 tempTempArray = tempDoubleListGet.toArray(new Double[tempDoubleListGet.size()]);
 //
 //                XYSeries series1 = new SimpleXYSeries(

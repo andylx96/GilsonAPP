@@ -1,6 +1,8 @@
 package io.github.andylx96.gilsonapi;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGatt;
@@ -16,9 +18,11 @@ import android.bluetooth.le.ScanCallback;
 import android.bluetooth.le.ScanFilter;
 import android.bluetooth.le.ScanResult;
 import android.bluetooth.le.ScanSettings;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.ParcelUuid;
 import android.support.annotation.RequiresApi;
@@ -52,6 +56,7 @@ public class Pair2Activity extends AppCompatActivity {
     private static final int REQUEST_FINE_LOCATION = 2;
     private static final String UUID_STRING = "5154474C-9000-0101-0001-000000000001";
     private static final String CHAR_ID = "5154474C-9000-0101-0004-000000000000";
+    private static final String MACADDRESS = "00:07:80:A5:47:16";
     private UUID uuidService = UUID.fromString(UUID_STRING);
     private UUID uuidChar = UUID.fromString(CHAR_ID);
 
@@ -81,7 +86,11 @@ public class Pair2Activity extends AppCompatActivity {
 
     ArrayList<ArrayList> gyroData;
     ArrayList<Double> tempature;
+    private int crashCount = 0;
 
+    private Double previousAX = 0.0, previousAY = 0.0, previousAZ = 0.0;
+    private ProgressDialog progressDialog;
+private boolean pairReady = false;
     @Override
     protected void onResume() {
         super.onResume();
@@ -114,7 +123,7 @@ public class Pair2Activity extends AppCompatActivity {
         gatt_text = (TextView) findViewById(R.id.gatt_data);
         disconnectButton = (Button) findViewById(R.id.disconnectButton);
         readDataButton = (Button) findViewById(R.id.readDataButton);
-
+        progressDialog = new ProgressDialog(this);
         setButtonListener();
     }
 
@@ -140,9 +149,13 @@ public class Pair2Activity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void startScan() {
+
         if (!hasPermissions() || mScanning) {
             return;
         }
+
+        progressDialog.setMessage("Scanning\nCan take up to 10 seconds....");
+        progressDialog.show();
         // TODO start the scan
         List<ScanFilter> filters = new ArrayList<>();
 //        ScanFilter scanFilter = new ScanFilter.Builder()
@@ -150,7 +163,7 @@ public class Pair2Activity extends AppCompatActivity {
 //                .build();
 //        filters.add(scanFilter);
 
-        ScanFilter filter = new ScanFilter.Builder().setDeviceAddress("00:07:80:A5:47:16").build();
+        ScanFilter filter = new ScanFilter.Builder().setDeviceAddress(MACADDRESS).build();
         filters.add(filter);
 //        00:07:80:A5:47:16
 
@@ -245,7 +258,9 @@ public class Pair2Activity extends AppCompatActivity {
 
     private void scanComplete() {
         if (mScanResults.isEmpty()) {
+            progressDialog.dismiss();
 
+            Toast.makeText(this,"No Devices Found",Toast.LENGTH_LONG).show();
             connectStatus2.setText(connectStatus2.getText() + "\nNo Devices Found");
 
             return;
@@ -284,7 +299,7 @@ public class Pair2Activity extends AppCompatActivity {
 //                        bar.setVisibility(View.INVISIBLE);
 //                        loadingText.setVisibility(View.INVISIBLE);
 
-                        connectStatus2.setText(connectStatus2.getText() + "\nGATT Failed");
+                        connectStatus2.setText(connectStatus2.getText() + "\nConnection Not Ready\nGATT Failed\nPlease Try Agian");
 
                     }
                 });
@@ -319,7 +334,7 @@ public class Pair2Activity extends AppCompatActivity {
 //                        dbloadingInfo.setVisibility(View.VISIBLE);
 //                        bar.setVisibility(View.INVISIBLE);
 //                        loadingText.setVisibility(View.INVISIBLE);
-
+                        pairReady = true;
                         connectStatus2.setText(connectStatus2.getText() + "\nConnected");
 
                         Log.d(TAG, "Connected");
@@ -382,7 +397,7 @@ public class Pair2Activity extends AppCompatActivity {
             readDataButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
+if(pairReady == true){
 
                     if (continueThread == true) {
 //                            t.interrupt();
@@ -402,13 +417,15 @@ public class Pair2Activity extends AppCompatActivity {
                                 tempJson,
                                 "0.0",
                                 Calendar.getInstance().getTime().toString()
+
                         ); //FIX ME
                         if (isInserted == true)
                             Toast.makeText(Pair2Activity.this, "Data Inserted", Toast.LENGTH_LONG).show();
                         else
                             Toast.makeText(Pair2Activity.this, "Data not Inserted", Toast.LENGTH_LONG).show();
 
-
+//RESET DATA
+                        crashCount = 0;
                         tempature = new ArrayList<>();
 
                         gyroData = new ArrayList<>();
@@ -446,7 +463,7 @@ public class Pair2Activity extends AppCompatActivity {
 
 
                                                 saveToDB(accelList, gyroList, tempature);
-
+checkForCrash((double)  ax / 32768 * 8,(double)  ay / 32768 * 8,(double)  az / 32768 * 8);
 
                                             }
                                         });
@@ -463,6 +480,8 @@ public class Pair2Activity extends AppCompatActivity {
                         readDataButton.setText("Stop Reading Data");
                         t.start();
                     }
+
+                } else showMessage("Pair","Please Pair Your Phone First");
 
                 }
             });
@@ -611,6 +630,46 @@ public class Pair2Activity extends AppCompatActivity {
 
     }
 
+    public void checkForCrash(Double ax, Double ay,Double  az){
+
+        if(Math.abs(previousAX - ax)> 5){
+
+            crashCount++;
+            AlertDialog alertDialog = new AlertDialog.Builder(Pair2Activity.this).create();
+            alertDialog.setTitle("Emergency crash sending help in");
+            alertDialog.setMessage("00:10");
+            alertDialog.setCancelable(false);
+            alertDialog.setButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    dialogInterface.cancel();
+                }
+            });
+
+            alertDialog.show();   //
+
+            new CountDownTimer(10000, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    alertDialog.setMessage("00:" + (millisUntilFinished / 1000));
+                }
+
+                @Override
+                public void onFinish() {
+                    Intent intent = new Intent(Pair2Activity.this,EmergencyActivity.class);
+                    startActivity(intent);
+
+                }
+            }.start();
+
+        }
+        previousAX = ax;
+        previousAY = ay;
+        previousAZ = az;
+
+
+    }
+
 
 //    public void onServicesDiscovered(BluetoothGatt gatt, int status) {
 //        super.onServicesDiscovered(gatt, status);
@@ -640,6 +699,13 @@ public class Pair2Activity extends AppCompatActivity {
         super.onBackPressed();
         disconnectGattServer();
         this.finish();
+    }
+    public void showMessage(String title, String Message) {
+        android.support.v7.app.AlertDialog.Builder builder = new android.support.v7.app.AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setTitle(title);
+        builder.setMessage(Message);
+        builder.show();
     }
 }
 
