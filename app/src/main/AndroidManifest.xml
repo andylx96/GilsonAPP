@@ -7,7 +7,8 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.SEND_SMS"/>
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -16,8 +17,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
-        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".TestActivity" />
         <activity android:name=".Pair2Activity" />
         <activity
@@ -26,18 +28,20 @@
         <activity
             android:name=".ViewBasicRunDataActivity"
             android:exported="true" />
-        <activity android:name=".SocialMediaActivity"/>
-        <activity android:name=".EmergencyActivity"/>
+        <activity android:name=".SocialMediaActivity" />
+        <activity android:name=".EmergencyActivity" />
         <activity android:name=".AggregateRunDataActivity" />
         <activity android:name=".StartRunActivity" />
+        <activity android:name=".xyPlotActivity" />
+        <activity android:name=".pieChartActivity" />
         <activity android:name=".SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
+        <activity android:name=".ViewAllRunData"></activity>
     </application>
 
 </manifest>

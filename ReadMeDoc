@@ -1,0 +1,8 @@
+Send Emergency Signal use case-
+You can visit the emergency use case class (EmergencyActivity)-
+or You can open View Basic Run Data (ViewBasicRunDataActivity)-
+and click the emergency button that will prompt a alertdialog box
+with a 10 second countdown, if you dont cancel it will send you to
+the emergency activity class. This class will prompt the user for a 
+phone number then send the device exact location(Longitude & Latitude Coordinates)
+through a text to the phone number that the user inputs.

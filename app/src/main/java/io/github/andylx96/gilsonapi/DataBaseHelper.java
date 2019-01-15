@@ -8,27 +8,36 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by Kyle on 4/8/2018.
  */
 
 public class DataBaseHelper extends SQLiteOpenHelper {
 
-    public static final String DATABASE_NAME = "Snowboard.db";
+    public static final String DATABASE_NAME = "Snowboard5.db";
     public static final String TABLE_NAME = "snowboard_data_table";
     public static final String COL_1 = "ID";
     public static final String COL_2 = "AccelData";
     public static final String COL_3 = "MagAccel";
     public static final String COL_4 = "GyroData";
     public static final String COL_5 = "TempData";
+    public static final String COL_6 = "SpeedData";
+
+    public static final String COL_7 = "DateData";
+
+
+    public static final String COL_8 = "CrashCount";
 
     public DataBaseHelper(Context context) {
-        super(context, DATABASE_NAME, null, 1);
+        super(context, DATABASE_NAME, null, 2);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table " + TABLE_NAME +" (ID INTEGER PRIMARY KEY AUTOINCREMENT,AccelData TEXT,MagAccel TEXT,GyroData TEXT,TempData TEXT)");
+        db.execSQL("create table " + TABLE_NAME +" (ID INTEGER PRIMARY KEY AUTOINCREMENT,AccelData TEXT,MagAccel TEXT,GyroData TEXT,TempData TEXT,SpeedData TEXT,DateData TEXT, CrashCount TEXT )");
     }
 
     @Override
@@ -37,13 +46,17 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean insertData(String AccelData, String MagAccel, String GyroData, String TempData) {
+    public boolean insertData(String AccelData, String MagAccel, String GyroData, String TempData, String SpeedData, String DateData, String CrashCount) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_2,AccelData);
         contentValues.put(COL_3,MagAccel);
         contentValues.put(COL_4,GyroData);
         contentValues.put(COL_5,TempData);
+        contentValues.put(COL_6,SpeedData);
+        contentValues.put(COL_7,DateData);
+
+        contentValues.put(COL_8,CrashCount);
         long result = db.insert(TABLE_NAME,null ,contentValues);
         if(result == -1)
             return false;
@@ -57,13 +70,17 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return res;
     }
 
-    public boolean updateData(String id,String AccelData, String MagAccel, String GyroData, String TempData) {
+    public boolean updateData(String id,String AccelData, String MagAccel, String GyroData, String TempData, String SpeedData, String DateData, String CrashCount) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_2,AccelData);
         contentValues.put(COL_3,MagAccel);
         contentValues.put(COL_4,GyroData);
         contentValues.put(COL_5,TempData);
+        contentValues.put(COL_6, SpeedData);
+        contentValues.put(COL_7,DateData);
+
+        contentValues.put(COL_8,CrashCount);
         db.update(TABLE_NAME, contentValues, "ID = ?",new String[] { id });
         return true;
     }
@@ -71,8 +88,25 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public void deleteData () {
         SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_NAME,null,null);
-    }
 
+//        db.execSQL("VACUUM");
+    }
+    public List<String> getAllCategory() {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        List<String> List = new ArrayList<String>();
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + TABLE_NAME;
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                List.add(cursor.getString(6));
+            } while (cursor.moveToNext());
+        }
+        return List;
+    }
 
 
 }

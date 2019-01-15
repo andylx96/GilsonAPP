@@ -22,11 +22,13 @@ public class Snowboard {
     double temp;
     boolean pos_neg;
 
+
     public Snowboard(){
-        snowboardDataSet = new double[64];
+        snowboardDataSet = new double[65]; //add rows for location and time
         accelerometer = new double[3];
         accelerometer = new double[3];
         temp = 0;
+
     }
 
     /**
@@ -38,7 +40,6 @@ public class Snowboard {
 
 
     /**
-     *
      * Sets data set as byte array
      * @param snowboardDataSet snowboard data set as an array
      */
@@ -69,7 +70,6 @@ public class Snowboard {
         Random random = new Random();
         pos_neg = random.nextBoolean();
 
-
         double[] tempArry = new double[3];
         tempArry[0] = Double.parseDouble(df3.format(Math.random()));
         tempArry[1] =  Double.parseDouble(df3.format(Math.random()));
@@ -78,7 +78,6 @@ public class Snowboard {
         if(pos_neg){tempArry[0] = tempArry[0] * -1;}
 
         return tempArry;
-
     }
 
     public void setGyroscope(double[] gyroscope) {
@@ -98,4 +97,5 @@ public class Snowboard {
     public void setTemp(double temp) {
         this.temp = temp;
     }
+
 }
